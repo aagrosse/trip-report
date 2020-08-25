@@ -9,9 +9,9 @@ function LandingPage() {
     return (
         <div>
             <Navbar />
-            <Sidebar />
+            {/* <Sidebar /> */}
             <Map />
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Minima aspernatur quo recusandae aliquam rem, expedita saepe nesciunt necessitatibus modi consectetur?
+            
             <Footer/>
         </div>
     )

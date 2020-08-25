@@ -1,23 +1,29 @@
 import React from "react"
 import Jumbotron from 'react-bootstrap/Jumbotron';
 import Container from 'react-bootstrap/Container';
-import Nav from 'react-bootstrap/Nav';
+import Navbar from 'react-bootstrap/Navbar';
 import FormControl from 'react-bootstrap/FormControl';
+import "./style.css"
 
-function Navbar() {
+function header() {
     return (
-        <div>
+      <div>
+        <div id='jumbo'>
 <Jumbotron fluid>
   <Container>
-    <h1>Fluid jumbotron</h1>
+    <div id='text2'>
+    <h1>Welcome to Trip Report</h1>
     <p>
-      This is a modified jumbotron that occupies the entire horizontal space of
-      its parent.
+      Click on the map to see your reports
     </p>
+    </div>
   </Container>
-</Jumbotron>
+  </Jumbotron>
+  </div>
+
+
       </div>
     )
 }
 
-export default Navbar;
+export default header;
