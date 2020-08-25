@@ -3,6 +3,7 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import Card from 'react-bootstrap/Card';
+import Form from 'react-bootstrap/Form';
 
 import './style.css';
 
@@ -12,14 +13,14 @@ function Reports() {
 
 
     return (
-        <div >
+        <div id="reportid">
 
             <Container>
                 <Row>
                     <Col>
-                        <Card>
+                        <Card className= 'card'>
                             <Card.Body>
-                                <Card.Title>Card Title</Card.Title>
+                                <Card.Title>Trips List Here</Card.Title>
                                 <Card.Text> This is some text within a card body.</Card.Text>
                                 <Card.Link href="#">Card Link</Card.Link>
                             </Card.Body>
@@ -27,17 +28,35 @@ function Reports() {
                     </Col>
 
                     <Col>
-                        <Card style={{ width: '18rem' }}>
-                            <Card.Body>
-                                <Card.Title>Card Title</Card.Title>
-                                <Card.Subtitle className="mb-2 text-muted">Card Subtitle</Card.Subtitle>
-                                <Card.Text>
-                                    Some quick example text to build on the card title and make up the bulk of
-                                    the card's content.
-                                </Card.Text>
-                                <Card.Link href="#">Card Link</Card.Link>
-                                <Card.Link href="#">Another Link</Card.Link>
-                            </Card.Body>
+                        <Card style={{ padding: '1em' }} className= 'card'>
+                            <Card.Title>Trip Report</Card.Title>
+                            <Form >
+                                <Form.Group controlId="exampleForm.ControlInput1">
+                                    <Form.Label>Trip Name:</Form.Label>
+                                    <Form.Control type="text" placeholder="The Best Cave Ever" />
+                                </Form.Group>
+
+                                <Form.Group controlId="exampleForm.ControlInput1">
+                                    <Form.Label>People on the Trip:</Form.Label>
+                                    <Form.Control type="text" placeholder="All my friends" />
+                                </Form.Group>
+
+                                <Form.Group controlId="exampleForm.ControlInput1">
+                                    <Form.Label>Lat:</Form.Label>
+                                    <Form.Control type="text" placeholder="34.02" />
+                                </Form.Group>
+
+                                <Form.Group controlId="exampleForm.ControlInput1">
+                                    <Form.Label>Long:</Form.Label>
+                                    <Form.Control type="text" placeholder="-84.06" />
+                                </Form.Group>
+
+
+                                <Form.Group controlId="exampleForm.ControlTextarea1">
+                                    <Form.Label>Trip Details:</Form.Label>
+                                    <Form.Control as="textarea" rows="6" placeholder="We went somewhere and did some stuff" />
+                                </Form.Group>
+                            </Form>
                         </Card>
                     </Col>
 
