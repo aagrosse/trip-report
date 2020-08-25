@@ -4,6 +4,7 @@
 } 
 
 #jumbo {
-    height:160px;
-    /* border-bottom: 2px solid rgb(40,44,52); */
+    height:100px;
+    border-bottom: 3px solid rgb(40,44,52);
+    background-color: lightgray;
 }
