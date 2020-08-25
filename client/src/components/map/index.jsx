@@ -40,7 +40,7 @@ function Map() {
                 >
                     <Popup>
                         Some Cave you visited <br /> Go to trip report link.
-                   </Popup>
+                  </Popup>
                 </Marker>
 
                 <TileLayer

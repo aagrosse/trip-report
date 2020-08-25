@@ -1,20 +1,20 @@
 import React from "react"
 import Navbar from "../components/navbar/index"
-import Sidebar from "../components/sidebar/index"
+import Sidebar from "../components/button/index"
 import Footer from "../components/footer/index"
 import Map from "../components/map/index"
-import { Icon } from 'semantic-ui-react';
+import Reports from "../components/reports/index"
 
 
-function TripReport() {
+function tripReport() {
     return (
         <div>
             <Navbar />
            
-            
+            <Reports />
             <Footer/>
         </div>
     )
 }
 
-export default TripReport;
+export default tripReport;
