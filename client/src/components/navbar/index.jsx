@@ -13,13 +13,24 @@ function header() {
 
         <Container>
           <Row>
-            <Col ><Buttons /></Col>
+            <Col >
+            <Row>
+            <Buttons 
+              href = '/'
+              label= 'Map'
+            />
+            <Buttons 
+              href= '/report'
+              label= 'Reports'
+            />
+            </Row>
+            </Col>
             <Col xs={6}>
               <div id='text2'>
                 <h1>Welcome to Trip Report</h1>
                 <p>
-                  Click on the map to see your reports
-    </p>
+                  We remember so you dont have to.
+                </p>
 
               </div>
             </Col>

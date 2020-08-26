@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import Button from 'react-bootstrap/Button';
 import "./style.css"
 
-function Buttons() {
+function Buttons(props) {
 
     const [label, setLabel] = useState('Reports');
     const [href, setHref] = useState('/report');
@@ -15,10 +15,10 @@ function Buttons() {
         <div id="button1">
             <Button
                 variant="outline-dark"
-                href={href}
-                onclick= {changeButton(href)}
+                href={props.href}
+                // onclick= {changeButton(href)}
             >
-                {label}</Button>{' '}
+                {props.label}</Button>{' '}
         </div>
     )
 }

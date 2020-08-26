@@ -7,3 +7,7 @@
     box-shadow: 1px 1px 2px black, 0 0 25px grey, 0 0 5px darkgrey;
 
 }
+
+body {
+    background-image: url('../../assets/topography.png');
+}
