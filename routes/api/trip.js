@@ -16,3 +16,4 @@ router
 .route("/userId/:id")
 .get(tripController.findByUserId)
 
+module.exports = router
