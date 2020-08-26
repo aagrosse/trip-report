@@ -14,6 +14,7 @@ function Buttons(props) {
     return (
         <div id="button1">
             <Button
+                
                 variant="outline-dark"
                 href={props.href}
                 // onclick= {changeButton(href)}
