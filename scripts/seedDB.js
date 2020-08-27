@@ -19,9 +19,9 @@ const tripSeed = {
 
 db.Trip
   .remove({})
-  .then(() => db.Trip.collection.insertMany(tripSeed))
+  .then(() => db.Trip.insertMany(tripSeed))
   .then(data => {
-    console.log(data.result.n + " records inserted!");
+    console.log("records inserted!");
     process.exit(0);
   })
   .catch(err => {
