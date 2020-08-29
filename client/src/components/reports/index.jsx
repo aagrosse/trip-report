@@ -26,9 +26,9 @@ function Reports() {
 
     const [searchResults, setSearchResults] = useState([]);
     const [newtrips, setNewTrips] = useState([
-        { _id: "001", date: "07/19/2020", title: "The Coolest Cave", view: "", edit: "", delete: "" },
-        { _id: "002", date: "08/20/2020", title: "Another Cool Cave", view: "", edit: "", delete: "" },
-        { _id: "003", date: "02/13/2020", title: "A Beautiful Memory", view: "", edit: "", delete: "" },
+        { _id: "001", date: "07/19/2020", tripName: "The Coolest Cave", people: "", type: "", lat: "", long: "", description: "", image: "", view: "", edit: "", delete: "" },
+        { _id: "002", date: "08/20/2020", tripName: "Another Cool Cave", people: "", type: "", lat: "", long: "", description: "", image: "", view: "", edit: "", delete: "" },
+        { _id: "003", date: "02/13/2020", tripName: "A Beautiful Memory", people: "", type: "", lat: "", long: "", description: "", image: "", view: "", edit: "", delete: "" },
     ]);
     const [editTrip, setEditTrip] = useState([]);
     const [state, setState] = useState([]);
@@ -83,9 +83,9 @@ function Reports() {
 
             return (
                 <tr key={trip._id}>
-                    <td>{trip.id}</td>
+                    <td>{trip._id}</td>
                     <td>{trip.date}</td>
-                    <td>{trip.title}</td>
+                    <td>{trip.tripName}</td>
                     <td><a style={{ cursor: "pointer", color: "blue" }} class='view-trip' >VIEW</a></td>
                     <td><a style={{ cursor: "pointer", color: "orange" }} class='edit-trip' onClick={() => handleEdit(trip)}>EDIT</a></td>
                     <td><a style={{ cursor: "pointer", color: "red" }} class='delete-trip' id={trip._id} onClick={() => deleteTrip(trip)}>DELETE</a></td>
@@ -106,16 +106,16 @@ function Reports() {
     }
 
     function handleEdit(trip) {
-        const { tripName, people, type, lat, long, description, image, date} = trip
+        const { tripName, people, type, lat, long, description, image, date } = trip
 
         setState({
-            tripName: trip.tripname,
+            tripName: trip.tripName,
             people: trip.people,
             type: trip.type,
             lat: trip.lat,
             long: trip.long,
             description: trip.description,
-            image:trip.image,
+            image: trip.image,
             date: trip.date
         });
         setEditTrip(trip)
@@ -127,7 +127,12 @@ function Reports() {
         console.log("go to edit")
     }
 
-
+    const handleInputChange = (event) => {
+        setState({
+            ...state,
+            [event.target.name]: event.target.value,
+        });
+    };
 
 
     // useEffect(() => { getTrips(); }, []);
@@ -153,7 +158,7 @@ function Reports() {
                                         type="text"
                                         id="inputID"
 
-                                      onChange={e => searchFilter(e)}
+                                        onChange={e => searchFilter(e)}
                                     />
                                 </Form>
                             </Card.Body>
@@ -201,31 +206,45 @@ function Reports() {
                             <Form >
                                 <Form.Group controlId="exampleForm.ControlInput1">
                                     <Form.Label>Trip Name:</Form.Label>
-                                    <Form.Control type="text" placeholder="The Best Cave Ever" />
+                                    <Form.Control
+                                        type="text"
+                                        placeholder="The Best Cave Ever"
+                                        value={state.tripName}
+                                        onChange={handleInputChange}
+                                        name="tripName"
+                                    />
                                 </Form.Group>
 
 
 
                                 <Form.Group controlId="exampleForm.ControlInput1">
                                     <Form.Label>People on the Trip:</Form.Label>
-                                    <Form.Control type="text" placeholder="All my friends" />
+                                    <Form.Control
+                                        type="text"
+                                        value={state.people}
+                                        onChange={handleInputChange}
+                                        name="people"
+                                    />
                                 </Form.Group>
 
                                 <Form.Row>
 
                                     <Form.Group as={Col} controlId="formGridText">
                                         <Form.Label>Date (MM/DD/YYYY):</Form.Label>
-                                        <Form.Control type="text" placeholder="07/19/2020" name="date"
-                                        // value={state.country}
-                                        // onChange={handleInputChange}
+                                        <Form.Control
+                                            type="text"
+                                            value={state.date}
+                                            name="date"
+                                            onChange={handleInputChange}
                                         />
                                     </Form.Group>
                                     <Form.Group as={Col} controlId="formGridText">
                                         <Form.Label>Trip Type:</Form.Label>
-                                        <Form.Control type="text" placeholder="vertical"
+                                        <Form.Control
+                                            type="text"
+                                            value={state.type}
                                             name="type"
-                                        // value={state.city}
-                                        // onChange={handleInputChange}
+                                            onChange={handleInputChange}
                                         />
                                     </Form.Group>
 
@@ -236,25 +255,35 @@ function Reports() {
                                 <Form.Row>
                                     <Form.Group as={Col} controlId="formGridText">
                                         <Form.Label>Lat:</Form.Label>
-                                        <Form.Control type="text" placeholder="34.56"
+                                        <Form.Control
+                                            type="text"
                                             name="lat"
-                                        // value={state.city}
-                                        // onChange={handleInputChange}
+                                            value={state.lat}
+                                            onChange={handleInputChange}
                                         />
                                     </Form.Group>
 
                                     <Form.Group as={Col} controlId="formGridText">
                                         <Form.Label>Long:</Form.Label>
-                                        <Form.Control type="text" placeholder="-84.06" name="long"
-                                        // value={state.country}
-                                        // onChange={handleInputChange}
+                                        <Form.Control
+                                            type="text"
+
+                                            name="long"
+                                            value={state.long}
+                                            onChange={handleInputChange}
                                         />
                                     </Form.Group>
                                 </Form.Row>
 
                                 <Form.Group controlId="exampleForm.ControlTextarea1">
                                     <Form.Label>Trip Details:</Form.Label>
-                                    <Form.Control as="textarea" rows="6" placeholder="We went somewhere and did some stuff" />
+                                    <Form.Control
+                                        as="textarea"
+                                        rows="6"
+                                        name="details"
+                                        value={state.details}
+                                        onChange={handleInputChange}
+                                    />
                                 </Form.Group>
 
                                 <Button variant="primary" type="submit">
