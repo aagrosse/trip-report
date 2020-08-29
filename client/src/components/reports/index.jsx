@@ -78,7 +78,7 @@ function Reports() {
     }
 
     function renderTableData() {
-        return newtrips.map((trip) => {
+        return searchResults.map((trip) => {
 
 
             return (
@@ -106,14 +106,17 @@ function Reports() {
     }
 
     function handleEdit(trip) {
-        // const { albumId, title, date, _id, description} = song
+        const { tripName, people, type, lat, long, description, image, date} = trip
 
         setState({
-            //   albumId: song.album._id,
-            //   title: song.title,
-            //   album: song.album.title,
-            //   description: song.album.description,
-            //   art: song.album.art
+            tripName: trip.tripname,
+            people: trip.people,
+            type: trip.type,
+            lat: trip.lat,
+            long: trip.long,
+            description: trip.description,
+            image:trip.image,
+            date: trip.date
         });
         setEditTrip(trip)
         console.log(trip)
@@ -150,7 +153,7 @@ function Reports() {
                                         type="text"
                                         id="inputID"
 
-                                    //   onChange={e => searchFilter(e)}
+                                      onChange={e => searchFilter(e)}
                                     />
                                 </Form>
                             </Card.Body>
