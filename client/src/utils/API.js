@@ -20,16 +20,16 @@ export default {
  //Trips
 
  uploadTrips: function(data){
-    return axios.post("/api/trip", data)
+    return axios.post("/api/trip/", data)
   },
   getTrips: function() {
-    return axios.get("/api/trip");
+    return axios.get("/api/trip/");
   },
   getTrip: function(id) {
     return axios.get("/api/trip/" + id);
   },
   updateTrip: function( data) {
-    return axios.put("/api/trip",data);
+    return axios.put("/api/trip/",data);
   },
   getTripsByUserId: function(id){
     return axios.get("/api/trip/userId/" + id)

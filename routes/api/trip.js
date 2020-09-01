@@ -12,6 +12,7 @@ router
 .route("/:id")
 .get(tripController.findById)
 
+
 router
 .route("/userId/:id")
 .get(tripController.findByUserId)

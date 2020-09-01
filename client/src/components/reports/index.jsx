@@ -16,7 +16,7 @@ import API from "../../utils/API";
 
 function Reports() {
     const mongoose = require("mongoose");
-    const id = mongoose.Types.ObjectId();
+    
     const trip = {
         data: [
             { _id: "001", date: "07/19/2020", title: "The Coolest Cave", view: "", edit: "", delete: "" },
@@ -25,7 +25,7 @@ function Reports() {
 
         ]
     }
-
+    const [id, setId] = useState(10001);
     const [searchResults, setSearchResults] = useState([]);
     const [newtrips, setNewTrips] = useState([
         { _id: "001", date: "07/19/2020", tripName: "The Coolest Cave", people: "", type: "", lat: "", long: "", description: "", image: "", view: "", edit: "", delete: "" },
@@ -88,9 +88,9 @@ function Reports() {
                     <td>{trip._id}</td>
                     <td>{trip.date}</td>
                     <td>{trip.tripName}</td>
-                    <td><a style={{ cursor: "pointer", color: "blue" }} class='view-trip' >VIEW</a></td>
-                    <td><a style={{ cursor: "pointer", color: "orange" }} class='edit-trip' onClick={() => handleEdit(trip)}>EDIT</a></td>
-                    <td><a style={{ cursor: "pointer", color: "red" }} class='delete-trip' id={trip._id} onClick={() => deleteTrip(trip)}>DELETE</a></td>
+                    <td><a style={{ cursor: "pointer", color: "blue" }} className='view-trip' >VIEW</a></td>
+                    <td><a style={{ cursor: "pointer", color: "orange" }} className='edit-trip' onClick={() => handleEdit(trip)}>EDIT</a></td>
+                    <td><a style={{ cursor: "pointer", color: "red" }} className='delete-trip' id={trip._id} onClick={() => deleteTrip(trip)}>DELETE</a></td>
                 </tr>
             )
         })
@@ -139,14 +139,16 @@ function Reports() {
 
     const handleSubmit = e => {
         e.preventDefault();
-        // updateAlbumToDb();
+        
 
         let data = state
-        console.log(`The data ${data}`)
+        console.log(state)
+       
+        
         API.uploadTrips({
 
             
-            _id: id,
+            _id: data.tripId,
             tripName: data.tripName,
             people: data.people,
             type: data.type,
@@ -155,6 +157,8 @@ function Reports() {
             description: data.description,
             image: data.image,
             date: data.date
+
+        
 
         })
         // API.updateTrip({
@@ -183,7 +187,7 @@ function Reports() {
 
     }
 
-    // useEffect(() => { getTrips(); }, []);
+    useEffect(() => { getTrips(); }, []);
 
     return (
         <div id="reportid">
@@ -206,7 +210,7 @@ function Reports() {
                                         type="text"
                                         placeholder="Search here..."
                                         className="mr-md-5"
-                                        type="text"
+                                        
                                         id="inputID"
 
                                         onChange={e => searchFilter(e)}
@@ -255,7 +259,22 @@ function Reports() {
                             </Col> */}
                             <Card.Title style={{ textAlign: 'center' }}>Trip Report</Card.Title>
                             <Form onSubmit={handleSubmit}>
-                                <Form.Group controlId="formGridText">
+                            <Form.Group controlId="formGridName">
+                                    <Form.Label>Trip Id:</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        
+                                        value={state._id}
+                                        onChange={handleInputChange}
+                                        name="tripId"
+                                    />
+                                </Form.Group>
+
+
+
+
+
+                                <Form.Group controlId="formGridName">
                                     <Form.Label>Trip Name:</Form.Label>
                                     <Form.Control
                                         type="text"
@@ -268,19 +287,20 @@ function Reports() {
 
 
 
-                                <Form.Group controlId="formGridText">
+                                <Form.Group >
                                     <Form.Label>People on the Trip:</Form.Label>
                                     <Form.Control
                                         type="text"
                                         value={state.people}
                                         onChange={handleInputChange}
                                         name="people"
+                                        
                                     />
                                 </Form.Group>
 
                                 <Form.Row>
 
-                                    <Form.Group as={Col} controlId="formGridText">
+                                    <Form.Group as={Col} >
                                         <Form.Label>Date (MM/DD/YYYY):</Form.Label>
                                         <Form.Control
                                             type="text"
@@ -289,7 +309,7 @@ function Reports() {
                                             onChange={handleInputChange}
                                         />
                                     </Form.Group>
-                                    <Form.Group as={Col} controlId="formGridText">
+                                    <Form.Group as={Col} >
                                         <Form.Label>Trip Type:</Form.Label>
                                         <Form.Control
                                             type="text"
@@ -304,7 +324,7 @@ function Reports() {
 
                                 </Form.Row>
                                 <Form.Row>
-                                    <Form.Group as={Col} controlId="formGridText">
+                                    <Form.Group as={Col} >
                                         <Form.Label>Lat:</Form.Label>
                                         <Form.Control
                                             type="text"
@@ -314,7 +334,7 @@ function Reports() {
                                         />
                                     </Form.Group>
 
-                                    <Form.Group as={Col} controlId="formGridText">
+                                    <Form.Group as={Col} >
                                         <Form.Label>Long:</Form.Label>
                                         <Form.Control
                                             type="text"
@@ -326,13 +346,13 @@ function Reports() {
                                     </Form.Group>
                                 </Form.Row>
 
-                                <Form.Group controlId="formGridText">
+                                <Form.Group >
                                     <Form.Label>Trip Details:</Form.Label>
                                     <Form.Control
                                         as="textarea"
                                         rows="6"
-                                        name="details"
-                                        value={state.details}
+                                        name="description"
+                                        value={state.description}
                                         onChange={handleInputChange}
                                     />
                                 </Form.Group>

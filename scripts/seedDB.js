@@ -6,7 +6,7 @@ mongoose.connect(
     "mongodb://localhost/trip-report"
 );
 
-var id = mongoose.Types.ObjectId();
+var id = mongoose.Types.ObjectId(100001);
 
 
 const tripSeed = {
