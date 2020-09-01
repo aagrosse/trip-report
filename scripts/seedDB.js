@@ -6,12 +6,16 @@ mongoose.connect(
     "mongodb://localhost/trip-report"
 );
 
+var id = mongoose.Types.ObjectId();
+
+
 const tripSeed = {
+    _id: id,
     tripName: "Trip to the best place ever",
     people: ["Alan Grosse", "Joy Palmer"],
     type: "survey",
-    lat: "",
-    long: "",
+    lat: "34.02",
+    long: "-84.02",
     description: "We did stuuf and mapped some cave",
     image: "url",
     date: "07/19/2020",
@@ -19,7 +23,7 @@ const tripSeed = {
 
 db.Trip
   .remove({})
-  .then(() => db.Trip.insertMany(tripSeed))
+  .then(() => db.Trip.collection.insertMany(tripSeed))
   .then(data => {
     console.log("records inserted!");
     process.exit(0);

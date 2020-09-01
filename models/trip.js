@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const tripSchema = new Schema({
+    _id: { type: Number, required: true },
     tripName: { type: String, required: true },
     people: [{type: String, required: true}],
     type: {type: String},
@@ -12,6 +13,6 @@ const tripSchema = new Schema({
     date: { type: Date, default: Date.now }
   });
   
-  const Trip = mongoose.model("trip", tripSchema);
+  const Trip = mongoose.model("Trip", tripSchema);
   
   module.exports = Trip;

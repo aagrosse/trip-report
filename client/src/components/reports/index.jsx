@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
@@ -14,7 +15,8 @@ import { ToastContainer, toast } from "react-toastify";
 import API from "../../utils/API";
 
 function Reports() {
-
+    const mongoose = require("mongoose");
+    const id = mongoose.Types.ObjectId();
     const trip = {
         data: [
             { _id: "001", date: "07/19/2020", title: "The Coolest Cave", view: "", edit: "", delete: "" },
@@ -46,9 +48,9 @@ function Reports() {
         // const userId = isAuth()._id;
         API.getTrips()
             .then((results) => {
-                console.log("all songs from db:", results.data);
+                console.log("all trips from db:", results.data);
                 setNewTrips(results.data);
-
+                setSearchResults(results.data);
 
 
 
@@ -109,6 +111,7 @@ function Reports() {
         const { tripName, people, type, lat, long, description, image, date } = trip
 
         setState({
+            _id:trip._id,
             tripName: trip.tripName,
             people: trip.people,
             type: trip.type,
@@ -134,6 +137,51 @@ function Reports() {
         });
     };
 
+    const handleSubmit = e => {
+        e.preventDefault();
+        // updateAlbumToDb();
+
+        let data = state
+        console.log(`The data ${data}`)
+        API.uploadTrips({
+
+            
+            _id: id,
+            tripName: data.tripName,
+            people: data.people,
+            type: data.type,
+            lat: data.lat,
+            long: data.long,
+            description: data.description,
+            image: data.image,
+            date: data.date
+
+        })
+        // API.updateTrip({
+
+        //     ...data,
+        //     ...editTrip,
+        //     tripName: data.tripName,
+        //     people: data.people,
+        //     type: data.type,
+        //     lat: data.lat,
+        //     long: data.long,
+        //     description: data.description,
+        //     image: data.image,
+        //     date: data.date
+
+        // })
+
+            .then((result) => {
+            })
+            .catch((err) => {
+                console.log(err);
+            });
+
+
+
+
+    }
 
     // useEffect(() => { getTrips(); }, []);
 
@@ -149,7 +197,10 @@ function Reports() {
                         <Card className='cardSearch mb-md-4'>
                             <Card.Body>
                                 <Card.Title>Search Your Trips</Card.Title>
-                                <Form inline>
+                                <Form
+                                    inline
+                                    onSubmit={handleSubmit}
+                                >
                                     <FormControl
                                         style={{ textAlign: "center", width: "100%" }}
                                         type="text"
@@ -203,12 +254,12 @@ function Reports() {
                                 <Image src="holder.js/171x180" rounded />
                             </Col> */}
                             <Card.Title style={{ textAlign: 'center' }}>Trip Report</Card.Title>
-                            <Form >
-                                <Form.Group controlId="exampleForm.ControlInput1">
+                            <Form onSubmit={handleSubmit}>
+                                <Form.Group controlId="formGridText">
                                     <Form.Label>Trip Name:</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        placeholder="The Best Cave Ever"
+                                        
                                         value={state.tripName}
                                         onChange={handleInputChange}
                                         name="tripName"
@@ -217,7 +268,7 @@ function Reports() {
 
 
 
-                                <Form.Group controlId="exampleForm.ControlInput1">
+                                <Form.Group controlId="formGridText">
                                     <Form.Label>People on the Trip:</Form.Label>
                                     <Form.Control
                                         type="text"
@@ -275,7 +326,7 @@ function Reports() {
                                     </Form.Group>
                                 </Form.Row>
 
-                                <Form.Group controlId="exampleForm.ControlTextarea1">
+                                <Form.Group controlId="formGridText">
                                     <Form.Label>Trip Details:</Form.Label>
                                     <Form.Control
                                         as="textarea"

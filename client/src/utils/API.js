@@ -20,22 +20,22 @@ export default {
  //Trips
 
  uploadTrips: function(data){
-    return axios.post("/api/trips", data)
+    return axios.post("/api/trip", data)
   },
   getTrips: function() {
-    return axios.get("/api/trips");
+    return axios.get("/api/trip");
   },
   getTrip: function(id) {
-    return axios.get("/api/trips/" + id);
+    return axios.get("/api/trip/" + id);
   },
   updateTrip: function( data) {
-    return axios.put("/api/trips",data);
+    return axios.put("/api/trip",data);
   },
   getTripsByUserId: function(id){
-    return axios.get("/api/trips/userId/" + id)
+    return axios.get("/api/trip/userId/" + id)
   },
   deleteTrip: function(id) {
-    return axios.delete("/api/trips/" + id);
+    return axios.delete("/api/trip/" + id);
   },
   
   
