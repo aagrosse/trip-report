@@ -3,7 +3,14 @@ import { Map as LeafletMap, TileLayer, GeoJSON, Marker, Popup } from 'react-leaf
 import API from "../../utils/API";
 import './style.css';
 
+import Modal from 'react-bootstrap/Modal';
+import Button from 'react-bootstrap/Button';
+
 function Map() {
+    const [show, setShow] = useState(false);
+
+    const handleClose = () => setShow(false);
+    const handleShow = () => setShow(true);
     const [trips, setTrips] = useState([])
     const accessToken = 'pk.eyJ1IjoiYWFncm9zc2UiLCJhIjoiY2tlOWFzNGtzMXltczJ3cWduZDRwZzFnMCJ9.YTfXUX9hOghZSLXELDHeLQ'
     const id = 'mapbox.satellite'
@@ -19,30 +26,57 @@ function Map() {
     };
 
 
-function renderMarkers() {
-    return trips.map((trip) => {
+    function renderMarkers() {
+        return trips.map((trip) => {
 
 
-        return (
-            <Marker
-            position={[trip.lat, trip.long]}
-            attributuion={trip.id}
-
-            zIndexOffset={1}
-            opacity={20}
-
-
-        >
-            <Popup>
-                <p>{trip.tripName}</p><a href="*">Go To Report</a>
-          </Popup>
-        </Marker>
-        )
-    })
-}
+            return (
+                <Marker
+                    position={[trip.lat, trip.long]}
+                    attributuion={trip.id}
+                    // icon= 
+                    zIndexOffset={1}
+                    opacity={20}
 
 
-useEffect(() => { getTrips(); }, []);
+                >
+                    <Popup>
+
+                        <>
+                            <Button variant="outline-success" onClick={handleShow}>
+                                {trip.tripName}
+                            </Button>
+
+                            <Modal show={show} onHide={handleClose}>
+                                <Modal.Header closeButton>
+                                    <Modal.Title>{trip.tripName}</Modal.Title>
+                                </Modal.Header>
+                                <Modal.Body>
+                                    
+                                    <p><b>Trip ID:</b> {trip.id}</p>
+                                    <p><b>Trip Name:</b> {trip.tripName}</p>
+                                    <p><b>Trip Type:</b> {trip.type}</p>
+                                    <p><b>People:</b> {trip.people}</p>
+                                    <p><b>Date:</b> {trip.date}</p>
+                                    <p><b>Trip Description:</b> {trip.description}</p>
+                                    
+                                </Modal.Body>
+                                <Modal.Footer>
+                                    <Button variant="secondary" onClick={handleClose}>
+                                        Close
+                                    </Button>
+
+                                </Modal.Footer>
+                            </Modal>
+                        </>
+                    </Popup>
+                </Marker>
+            )
+        })
+    }
+
+
+    useEffect(() => { getTrips(); }, []);
     return (
         <div id="mapid">
             <LeafletMap
@@ -58,8 +92,8 @@ useEffect(() => { getTrips(); }, []);
                 animate={true}
             >
                 {renderMarkers()}
-               
 
+                
                 <TileLayer
                     key={'tile-layer'}
                     attribution={'&copy <a href="http://osm.org/copyright">OpenStreetMap contributors</a>'}
