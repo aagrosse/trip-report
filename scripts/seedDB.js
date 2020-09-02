@@ -6,20 +6,40 @@ mongoose.connect(
     "mongodb://localhost/trip-report"
 );
 
-var id = mongoose.Types.ObjectId(100001);
 
 
-const tripSeed = {
-    _id: id,
-    tripName: "Trip to the best place ever",
-    people: ["Alan Grosse", "Joy Palmer"],
+
+const tripSeed = [{
+    id: "AJK691",
+    tripName: "Vahalla Survey Trip",
+    people: ["Alan Grosse", "Joy Palmer", "Elliot Stahl"],
     type: "survey",
-    lat: "34.02",
-    long: "-84.02",
-    description: "We did stuuf and mapped some cave",
+    lat: "34.838257106021047",
+    long: "-86.009409930557013",
+    description: "Mapped some cave",
     image: "url",
-    date: "07/19/2020",
-}
+    date: "03/19/2016",
+},{
+  id: "AJK197",
+  tripName: "Neversink Pit",
+  people: ["Alan Grosse", "Joy Palmer", "Elliot Stahl"],
+  type: "vertical",
+  lat: "34.804757824167609",
+  long: "-86.004965426400304",
+  description: "Pit bounce",
+  image: "url",
+  date: "05/19/2015",
+},{
+  id: "AJK379",
+  tripName: "Montague Cave Trip",
+  people: ["Alan Grosse", "Joy Palmer", "Elliot Stahl"],
+  type: "horizontal",
+  lat: "34.968365365639329",
+  long: "-85.801903512328863",
+  description: "Photo trip",
+  image: "url",
+  date: "07/23/2015",
+}]
 
 db.Trip
   .remove({})

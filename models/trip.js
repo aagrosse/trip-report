@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 
 const tripSchema = new Schema({
-    _id: { type: String, required: true },
+    id: { type: String, required: true },
     tripName: { type: String, required: true },
     people: [{type: String, required: true}],
     type: {type: String},

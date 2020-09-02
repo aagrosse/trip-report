@@ -1,19 +1,48 @@
 import React, { useState, useEffect } from 'react';
 import { Map as LeafletMap, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
-
+import API from "../../utils/API";
 import './style.css';
 
 function Map() {
-
+    const [trips, setTrips] = useState([])
     const accessToken = 'pk.eyJ1IjoiYWFncm9zc2UiLCJhIjoiY2tlOWFzNGtzMXltczJ3cWduZDRwZzFnMCJ9.YTfXUX9hOghZSLXELDHeLQ'
     const id = 'mapbox.satellite'
 
+    const getTrips = () => {
+        // const userId = isAuth()._id;
+        API.getTrips()
+            .then((results) => {
+                console.log("all trips from db:", results.data);
+                setTrips(results.data);
+            })
+            .catch((err) => console.log(err));
+    };
 
 
+function renderMarkers() {
+    return trips.map((trip) => {
 
 
+        return (
+            <Marker
+            position={[trip.lat, trip.long]}
+            attributuion={trip.id}
+
+            zIndexOffset={1}
+            opacity={20}
 
 
+        >
+            <Popup>
+                <p>{trip.tripName}</p><a href="*">Go To Report</a>
+          </Popup>
+        </Marker>
+        )
+    })
+}
+
+
+useEffect(() => { getTrips(); }, []);
     return (
         <div id="mapid">
             <LeafletMap
@@ -28,20 +57,8 @@ function Map() {
                 dragging={true}
                 animate={true}
             >
-
-                <Marker
-                    position={[34.9, -85.6]}
-                    attributuion='some crazy cave'
-
-                    zIndexOffset={1}
-                    opacity={20}
-
-
-                >
-                    <Popup>
-                        Some Cave you visited <br /> Go to trip report link.
-                  </Popup>
-                </Marker>
+                {renderMarkers()}
+               
 
                 <TileLayer
                     key={'tile-layer'}

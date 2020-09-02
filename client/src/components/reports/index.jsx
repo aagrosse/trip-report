@@ -12,6 +12,7 @@ import FormControl from 'react-bootstrap/FormControl';
 import Image from 'react-bootstrap/Image';
 import './style.css';
 import { ToastContainer, toast } from "react-toastify";
+
 import API from "../../utils/API";
 
 function Reports() {
@@ -19,18 +20,18 @@ function Reports() {
     
     const trip = {
         data: [
-            { _id: "001", date: "07/19/2020", title: "The Coolest Cave", view: "", edit: "", delete: "" },
-            { _id: "002", date: "08/20/2020", title: "Another Cool Cave", view: "", edit: "", delete: "" },
-            { _id: "003", date: "02/13/2020", title: "A Beautiful Memory", view: "", edit: "", delete: "" },
+            { id: "001", date: "07/19/2020", title: "The Coolest Cave", view: "", edit: "", delete: "" },
+            { id: "002", date: "08/20/2020", title: "Another Cool Cave", view: "", edit: "", delete: "" },
+            { id: "003", date: "02/13/2020", title: "A Beautiful Memory", view: "", edit: "", delete: "" },
 
         ]
     }
     const [id, setId] = useState(10001);
     const [searchResults, setSearchResults] = useState([]);
     const [newtrips, setNewTrips] = useState([
-        { _id: "001", date: "07/19/2020", tripName: "The Coolest Cave", people: "", type: "", lat: "", long: "", description: "", image: "", view: "", edit: "", delete: "" },
-        { _id: "002", date: "08/20/2020", tripName: "Another Cool Cave", people: "", type: "", lat: "", long: "", description: "", image: "", view: "", edit: "", delete: "" },
-        { _id: "003", date: "02/13/2020", tripName: "A Beautiful Memory", people: "", type: "", lat: "", long: "", description: "", image: "", view: "", edit: "", delete: "" },
+        { id: "001", date: "07/19/2020", tripName: "The Coolest Cave", people: "", type: "", lat: "", long: "", description: "", image: "", view: "", edit: "", delete: "" },
+        { id: "002", date: "08/20/2020", tripName: "Another Cool Cave", people: "", type: "", lat: "", long: "", description: "", image: "", view: "", edit: "", delete: "" },
+        { id: "003", date: "02/13/2020", tripName: "A Beautiful Memory", people: "", type: "", lat: "", long: "", description: "", image: "", view: "", edit: "", delete: "" },
     ]);
     const [editTrip, setEditTrip] = useState([]);
     const [state, setState] = useState([]);
@@ -58,18 +59,7 @@ function Reports() {
             .catch((err) => console.log(err));
     };
 
-    const deleteTrip = (trip) => {
-        const id = trip._id
-        API.deleteTrip(id)
-            .then((res) => {
-                console.log("after delete API", res)
-                getTrips()
-                toast("Your trip has been deleted")
-            })
-            .catch((err) => console.log("ERROR:" + err));
-
-    };
-
+ 
 
 
     function renderTableHeader() {
@@ -84,8 +74,8 @@ function Reports() {
 
 
             return (
-                <tr key={trip._id}>
-                    <td>{trip._id}</td>
+                <tr key={trip.id}>
+                    <td>{trip.id}</td>
                     <td>{trip.date}</td>
                     <td>{trip.tripName}</td>
                     <td><a style={{ cursor: "pointer", color: "blue" }} className='view-trip' >VIEW</a></td>
@@ -108,10 +98,10 @@ function Reports() {
     }
 
     function handleEdit(trip) {
-        const { tripName, people, type, lat, long, description, image, date } = trip
+        const { tripName, people, type, lat, long, description, image, date, id } = trip
 
         setState({
-            _id:trip._id,
+            id:trip.id,
             tripName: trip.tripName,
             people: trip.people,
             type: trip.type,
@@ -129,6 +119,19 @@ function Reports() {
         // setPage(true);
         console.log("go to edit")
     }
+
+    const deleteTrip = (trip) => {
+      
+        API.deleteTrip(trip._id)
+            .then((res) => {
+                console.log("after delete API", res)
+                getTrips()
+                // toast("Your trip has been deleted")
+            })
+            .catch((err) => console.log("ERROR:" + err));
+
+    };
+
 
     const handleInputChange = (event) => {
         setState({
@@ -148,7 +151,7 @@ function Reports() {
         API.uploadTrips({
 
             
-            _id: data.tripId,
+            id: data.id,
             tripName: data.tripName,
             people: data.people,
             type: data.type,
@@ -191,9 +194,9 @@ function Reports() {
 
     return (
         <div id="reportid">
-
+            
             {/* <ToastContainer /> */}
-
+            
             <Container>
                 <Row>
                     <Col>
@@ -264,9 +267,9 @@ function Reports() {
                                     <Form.Control
                                         type="text"
                                         
-                                        value={state._id}
+                                        value={state.id}
                                         onChange={handleInputChange}
-                                        name="tripId"
+                                        name="id"
                                     />
                                 </Form.Group>
 
