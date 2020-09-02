@@ -25,6 +25,14 @@ function Map() {
             .catch((err) => console.log(err));
     };
 
+    function convertDate(x) {
+        var parts = x.split('-');
+        var day = parts[2].split('', 2);
+        var newdate = parts[1] + '/' + day[0] + day[1] + '/' + parts[0];
+        return newdate
+
+    }
+
 
     function renderMarkers() {
         return trips.map((trip) => {
@@ -56,8 +64,11 @@ function Map() {
                                     <p><b>Trip ID:</b> {trip.id}</p>
                                     <p><b>Trip Name:</b> {trip.tripName}</p>
                                     <p><b>Trip Type:</b> {trip.type}</p>
-                                    <p><b>People:</b> {trip.people}</p>
-                                    <p><b>Date:</b> {trip.date}</p>
+                                    <p><b>People:</b> {trip.people[0]}</p>
+                                    <p>{trip.people[1]}</p>
+                                    <p>{trip.people[2]}</p>
+                                    <p>{trip.people[3]}</p>
+                                    <p><b>Date:</b> {convertDate(trip.date)}</p>
                                     <p><b>Trip Description:</b> {trip.description}</p>
                                     
                                 </Modal.Body>

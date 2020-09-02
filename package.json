@@ -29,6 +29,7 @@
     "express-session": "^1.17.1",
     "if-env": "^1.0.4",
     "leaflet": "^1.6.0",
+    "moment": "^2.27.0",
     "mongoose": "^5.10.2",
     "passport": "^0.4.1",
     "path": "^0.12.7",
