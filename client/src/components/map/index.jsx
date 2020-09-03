@@ -44,42 +44,41 @@ function Map() {
                     // icon= {redMarker}
                     zIndexOffset={1}
                     opacity={20}
-
+                    onClick={handleShow}
+                    title={trip.tripName}
 
                 >
-                    <Popup>
 
-                        <>
-                            <Button variant="outline-success" onClick={handleShow}>
-                                {trip.tripName}
-                            </Button>
 
-                            <Modal show={show} onHide={handleClose}>
-                                <Modal.Header closeButton>
-                                    <Modal.Title>{trip.tripName}</Modal.Title>
-                                </Modal.Header>
-                                <Modal.Body>
+                    <>
 
-                                    <p><b>Trip ID:</b> {trip.id}</p>
-                                    <p><b>Trip Name:</b> {trip.tripName}</p>
-                                    <p><b>Trip Type:</b> {trip.type}</p>
-                                    <p><b>People:</b> {trip.people[0]}</p>
-                                    <p>{trip.people[1]}</p>
-                                    <p>{trip.people[2]}</p>
-                                    <p>{trip.people[3]}</p>
-                                    <p><b>Date:</b> {convertDate(trip.date)}</p>
-                                    <p><b>Trip Description:</b> {trip.description}</p>
 
-                                </Modal.Body>
-                                <Modal.Footer>
-                                    <Button variant="secondary" onClick={handleClose}>
-                                        Close
+                        <Modal show={show} onHide={handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>{trip.tripName}</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+
+                                <p><b>Trip ID:</b> {trip.id}</p>
+                                <p><b>Trip Name:</b> {trip.tripName}</p>
+                                <p><b>Trip Type:</b> {trip.type}</p>
+                                <p><b>People:</b> {trip.people[0]}</p>
+                                <p>{trip.people[1]}</p>
+                                <p>{trip.people[2]}</p>
+                                <p>{trip.people[3]}</p>
+                                <p><b>Date:</b> {convertDate(trip.date)}</p>
+                                <p><b>Trip Description:</b> {trip.description}</p>
+
+                            </Modal.Body>
+                            <Modal.Footer>
+                                <Button variant="secondary" onClick={handleClose}>
+                                    Close
                                     </Button>
 
-                                </Modal.Footer>
-                            </Modal>
-                        </>
-                    </Popup>
+                            </Modal.Footer>
+                        </Modal>
+                    </>
+
                 </Marker>
             )
         })
