@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
-import { Map as LeafletMap, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
+import { Map as LeafletMap, TileLayer, GeoJSON, Marker, Popup} from 'react-leaflet';
 import API from "../../utils/API";
-import './style.css';
-
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
-import esri from 'esri-leaflet';
+import './style.css';
 
 function Map() {
     const [show, setShow] = useState(false);
@@ -34,6 +32,7 @@ function Map() {
     }
 
 
+
     function renderMarkers() {
         return trips.map((trip) => {
 
@@ -42,7 +41,7 @@ function Map() {
                 <Marker
                     position={[trip.lat, trip.long]}
                     attributuion={trip.id}
-                    // icon= 
+                    // icon= {redMarker}
                     zIndexOffset={1}
                     opacity={20}
 
@@ -93,6 +92,7 @@ function Map() {
             <LeafletMap
                 key={'leaflet-map-'}
                 center={[34.9, -85.6]}
+                
                 zoom={9}
                 maxZoom={18}
                 attributionControl={true}
@@ -107,7 +107,7 @@ function Map() {
                 
                 <TileLayer
                     key={'tile-layer'}
-                    attribution={'&copy <a href="http://osm.org/copyright">OpenStreetMap contributors</a>'}
+                    attribution={'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'}
                     url={'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'}
                 // url={`https://api.mapbox.com/v4/mapbox.outdoors/1/0/0@2x.jpg90?access_token=${accessToken}`}
 
