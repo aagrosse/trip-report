@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Map as LeafletMap, TileLayer, GeoJSON, Marker, Popup} from 'react-leaflet';
+import { Map as LeafletMap, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
 import API from "../../utils/API";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
@@ -11,7 +11,7 @@ function Map() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [trips, setTrips] = useState([])
-    
+
 
     const getTrips = () => {
         // const userId = isAuth()._id;
@@ -59,7 +59,7 @@ function Map() {
                                     <Modal.Title>{trip.tripName}</Modal.Title>
                                 </Modal.Header>
                                 <Modal.Body>
-                                    
+
                                     <p><b>Trip ID:</b> {trip.id}</p>
                                     <p><b>Trip Name:</b> {trip.tripName}</p>
                                     <p><b>Trip Type:</b> {trip.type}</p>
@@ -69,7 +69,7 @@ function Map() {
                                     <p>{trip.people[3]}</p>
                                     <p><b>Date:</b> {convertDate(trip.date)}</p>
                                     <p><b>Trip Description:</b> {trip.description}</p>
-                                    
+
                                 </Modal.Body>
                                 <Modal.Footer>
                                     <Button variant="secondary" onClick={handleClose}>
@@ -92,7 +92,7 @@ function Map() {
             <LeafletMap
                 key={'leaflet-map-'}
                 center={[34.9, -85.6]}
-                
+
                 zoom={9}
                 maxZoom={18}
                 attributionControl={true}
@@ -104,7 +104,7 @@ function Map() {
             >
                 {renderMarkers()}
 
-                
+
                 <TileLayer
                     key={'tile-layer'}
                     attribution={'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'}
