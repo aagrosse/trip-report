@@ -14,7 +14,7 @@ router
 .route("/:id")
 .get(tripController.findById)
 .delete(tripController.remove)
-
+.put(tripController.update)
 
 router
 .route("/userId/:id")

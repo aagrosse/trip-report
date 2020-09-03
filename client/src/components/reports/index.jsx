@@ -83,39 +83,39 @@ function Reports() {
 
     }
 
-    function showModal (trip){
+    function showModal(trip) {
         setShow(true)
-        return(
+        return (
             <div>
-        <>
-        <Modal show={show} onHide={handleClose}>
-            <Modal.Header closeButton>
-                <Modal.Title>{trip.tripName}</Modal.Title>
-            </Modal.Header>
-            <Modal.Body>
-    
-                <p><b>Trip ID:</b> {trip.id}</p>
-                <p><b>Trip Name:</b> {trip.tripName}</p>
-                <p><b>Trip Type:</b> {trip.type}</p>
-                <p><b>People:</b> {trip.people[0]}</p>
-                <p>{trip.people[1]}</p>
-                <p>{trip.people[2]}</p>
-                <p>{trip.people[3]}</p>
-                <p><b>Date:</b> {convertDate(trip.date)}</p>
-                <p><b>Trip Description:</b> {trip.description}</p>
-    
-            </Modal.Body>
-            <Modal.Footer>
-                <Button variant="secondary" onClick={handleClose}>
-                    Close
+                <>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title>{trip.tripName}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+
+                            <p><b>Trip ID:</b> {trip.tripId}</p>
+                            <p><b>Trip Name:</b> {trip.tripName}</p>
+                            <p><b>Trip Type:</b> {trip.type}</p>
+                            <p><b>People:</b> {trip.people[0]}</p>
+                            <p>{trip.people[1]}</p>
+                            <p>{trip.people[2]}</p>
+                            <p>{trip.people[3]}</p>
+                            <p><b>Date:</b> {convertDate(trip.date)}</p>
+                            <p><b>Trip Description:</b> {trip.description}</p>
+
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
      </Button>
-    
-            </Modal.Footer>
-        </Modal>
-    </>
-    </div>
+
+                        </Modal.Footer>
+                    </Modal>
+                </>
+            </div>
         )
-    
+
     };
 
 
@@ -127,17 +127,17 @@ function Reports() {
 
 
             return (
-                
-                    <tr key={trip.id}>
-                        <td>{trip.id}</td>
-                        <td>{convertDate(trip.date)}</td>
-                        <td>{trip.tripName}</td>
-                        <td><a style={{ cursor: "pointer", color: "blue" }} className='view-trip' onClick={() => showModal(trip)} >VIEW</a></td>
-                        <td><a style={{ cursor: "pointer", color: "orange" }} className='edit-trip' onClick={() => handleEdit(trip)}>EDIT</a></td>
-                        <td><a style={{ cursor: "pointer", color: "red" }} className='delete-trip' id={trip._id} onClick={() => deleteTrip(trip)}>DELETE</a></td>
-                    
-               
-                    </tr>
+
+                <tr key={trip._id}>
+                    <td>{trip.tripId}</td>
+                    <td>{convertDate(trip.date)}</td>
+                    <td>{trip.tripName}</td>
+                    <td><a style={{ cursor: "pointer", color: "blue" }} className='view-trip' onClick={() => showModal(trip)} >VIEW</a></td>
+                    <td><a style={{ cursor: "pointer", color: "orange" }} className='edit-trip' onClick={() => handleEdit(trip)}>EDIT</a></td>
+                    <td><a style={{ cursor: "pointer", color: "red" }} className='delete-trip' id={trip._id} onClick={() => confirmDelete(trip)}>DELETE</a></td>
+
+
+                </tr>
             )
         })
     }
@@ -154,15 +154,16 @@ function Reports() {
             .then((result) => {
                 setEditTrip(result.data)
 
-                console.log("GOT Trip", result.data);
+                // console.log("GOT Trip", result.data);
             })
     }
 
     function handleEdit(trip) {
-        const { tripName, people, type, lat, long, description, image, date, id } = trip
+        const { tripName, people, type, lat, long, description, image, date, tripId } = trip
 
         setState({
-            id: trip.id,
+            _id: trip._id,
+            tripId: trip.tripId,
             tripName: trip.tripName,
             people: trip.people,
             type: trip.type,
@@ -170,7 +171,9 @@ function Reports() {
             long: trip.long,
             description: trip.description,
             image: trip.image,
-            date: trip.date
+            date: trip.date,
+            
+
         });
         setEditTrip(trip)
         console.log(trip)
@@ -181,260 +184,273 @@ function Reports() {
         console.log("go to edit")
     }
 
-    const deleteTrip = (trip) => {
-
-        API.deleteTrip(trip._id)
-            .then((res) => {
-                console.log("after delete API", res)
-                getTrips()
-                // toast("Your trip has been deleted")
-            })
-            .catch((err) => console.log("ERROR:" + err));
-
-    };
-
-
-    const handleInputChange = (event) => {
-        setState({
-            ...state,
-            [event.target.name]: event.target.value,
-        });
-    };
-
-    const handleSubmit = e => {
-        e.preventDefault();
-
-
-        let data = state
-        console.log(state)
-
-
-        API.uploadTrips({
-
-
-            id: data.id,
-            tripName: data.tripName,
-            people: data.people,
-            type: data.type,
-            lat: data.lat,
-            long: data.long,
-            description: data.description,
-            image: data.image,
-            date: data.date
-
-
-
-        })
-            // API.updateTrip({
-
-            //     ...data,
-            //     ...editTrip,
-            //     tripName: data.tripName,
-            //     people: data.people,
-            //     type: data.type,
-            //     lat: data.lat,
-            //     long: data.long,
-            //     description: data.description,
-            //     image: data.image,
-            //     date: data.date
-
-            // })
-
-            .then((result) => {
-            })
-            .catch((err) => {
-                console.log(err);
-            });
-
-
-
-
+    const confirmDelete = (trip) => {
+        var result = window.confirm(`Are you sure you want to delete ${trip.tripName}?`);
+        if (result) {
+            deleteTrip(trip)
+        }
     }
 
-    useEffect(() => { getTrips(); }, []);
+    const deleteTrip = (trip) => {
+            API.deleteTrip(trip._id)
+                .then((res) => {
+                    console.log("after delete API", res)
+                    getTrips()
+                    // toast("Your trip has been deleted")
+                })
+                .catch((err) => console.log("ERROR:" + err));
 
-    return (
-        <div id="reportid">
+        };
+    
 
-            {/* <ToastContainer /> */}
+const handleInputChange = (event) => {
+    setState({
+        ...state,
+        [event.target.name]: event.target.value,
+    });
+};
 
-            <Container>
-                <Row>
-                    <Col>
-
-                        <Card className='cardSearch mb-md-4'>
-                            <Card.Body>
-                                <Card.Title>Search Your Trips</Card.Title>
-                                <Form
-                                    inline
-                                    onSubmit={handleSubmit}
-                                >
-                                    <FormControl
-                                        style={{ textAlign: "center", width: "100%" }}
-                                        type="text"
-                                        placeholder="Search here..."
-                                        className="mr-md-5"
-
-                                        id="inputID"
-
-                                        onChange={e => searchFilter(e)}
-                                    />
-                                </Form>
-                            </Card.Body>
-                        </Card>
-
-                        <Acard
-                            className='card'
-                            title="Trip Reports"
-                            category="Welcome to Your Report Library"
-                            ctTableFullWidth
-                            ctTableResponsive
-                            content={
-                                <div>
-
-                                    <Table id='tripTable' className="ml-3" striped hover>
-                                        <tbody>
-                                            <tr>{renderTableHeader()}</tr>
-                                            {renderTableData()}
-                                        </tbody>
-                                    </Table>
-                                </div>
+const handleSubmit = e => {
+    e.preventDefault();
 
 
+    let data = state
+
+    // data.update ?
+    //  API.updateTrip({
+
+    //         ...data,
+    //         ...editTrip,
+    //         _id: data._id,
+    //         TripId: data.TripId,
+    //         tripName: data.tripName,
+    //         people: data.people,
+    //         type: data.type,
+    //         lat: data.lat,
+    //         long: data.long,
+    //         description: data.description,
+    //         image: data.image,
+    //         date: data.date,
+    //         update: true
+
+    //     })
+
+
+    // : 
+    API.uploadTrips({
+
+
+        tripId: data.tripId,
+        tripName: data.tripName,
+        people: data.people,
+        type: data.type,
+        lat: data.lat,
+        long: data.long,
+        description: data.description,
+        image: data.image,
+        date: data.date,
+
+
+
+
+    })
+
+
+        .then((result) => {
+        })
+        .catch((err) => {
+            console.log(err);
+        });
+
+
+
+
+}
+
+useEffect(() => { getTrips(); }, []);
+
+return (
+    <div id="reportid">
+
+        {/* <ToastContainer /> */}
+
+        <Container>
+            <Row>
+                <Col>
+
+                    <Card className='cardSearch mb-md-4'>
+                        <Card.Body>
+                            <Card.Title>Search Your Trips</Card.Title>
+                            <Form
+                                inline
+                                onSubmit={handleSubmit}
+                            >
+                                <FormControl
+                                    style={{ textAlign: "center", width: "100%" }}
+                                    type="text"
+                                    placeholder="Search here..."
+                                    className="mr-md-5"
+
+                                    id="inputID"
+
+                                    onChange={e => searchFilter(e)}
+                                />
+                            </Form>
+                        </Card.Body>
+                    </Card>
+
+                    <Acard
+                        className='card'
+                        title="Trip Reports"
+                        category="Welcome to Your Report Library"
+                        ctTableFullWidth
+                        ctTableResponsive
+                        content={
+                            <div>
+
+                                <Table id='tripTable' className="ml-3" striped hover>
+                                    <tbody>
+                                        <tr>{renderTableHeader()}</tr>
+                                        {renderTableData()}
+                                    </tbody>
+                                </Table>
+                            </div>
 
 
 
 
 
-                            }
+
+
+                        }
 
 
 
 
-                        />
+                    />
 
 
-                    </Col>
+                </Col>
 
-                    <Col>
-                        <Card style={{ padding: '1em' }} className='card'>
-                            {/* <Col xs={6} md={4}>
+                <Col>
+                    <Card style={{ padding: '1em' }} className='card'>
+                        {/* <Col xs={6} md={4}>
                                 <Image src="holder.js/171x180" rounded />
                             </Col> */}
-                            <Card.Title style={{ textAlign: 'center' }}>Trip Report</Card.Title>
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group controlId="formGridName">
-                                    <Form.Label>Trip Id:</Form.Label>
+                        <Card.Title style={{ textAlign: 'center' }}>Trip Report</Card.Title>
+                        <Form onSubmit={handleSubmit}>
+                            <Form.Group controlId="formGridName">
+                                <Form.Label>Trip Id:</Form.Label>
+                                <Form.Control
+                                    type="text"
+
+                                    value={state.tripId}
+                                    onChange={handleInputChange}
+                                    name="tripId"
+                                />
+                            </Form.Group>
+
+
+
+
+
+                            <Form.Group controlId="formGridName">
+                                <Form.Label>Trip Name:</Form.Label>
+                                <Form.Control
+                                    type="text"
+
+                                    value={state.tripName}
+                                    onChange={handleInputChange}
+                                    name="tripName"
+                                />
+                            </Form.Group>
+
+
+
+                            <Form.Group >
+                                <Form.Label>People on the Trip:</Form.Label>
+                                <Form.Control
+                                    type="text"
+                                    value={state.people}
+                                    onChange={handleInputChange}
+                                    name="people"
+
+                                />
+                            </Form.Group>
+
+                            <Form.Row>
+
+                                <Form.Group as={Col} >
+                                    <Form.Label>Date (MM/DD/YYYY):</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={state.date}
+                                        name="date"
+                                        onChange={handleInputChange}
+                                    />
+                                </Form.Group>
+                                <Form.Group as={Col} >
+                                    <Form.Label>Trip Type:</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        value={state.type}
+                                        name="type"
+                                        onChange={handleInputChange}
+                                    />
+                                </Form.Group>
+
+
+
+
+                            </Form.Row>
+                            <Form.Row>
+                                <Form.Group as={Col} >
+                                    <Form.Label>Lat:</Form.Label>
+                                    <Form.Control
+                                        type="text"
+                                        name="lat"
+                                        value={state.lat}
+                                        onChange={handleInputChange}
+                                    />
+                                </Form.Group>
+
+                                <Form.Group as={Col} >
+                                    <Form.Label>Long:</Form.Label>
                                     <Form.Control
                                         type="text"
 
-                                        value={state.id}
-                                        onChange={handleInputChange}
-                                        name="id"
-                                    />
-                                </Form.Group>
-
-
-
-
-
-                                <Form.Group controlId="formGridName">
-                                    <Form.Label>Trip Name:</Form.Label>
-                                    <Form.Control
-                                        type="text"
-
-                                        value={state.tripName}
-                                        onChange={handleInputChange}
-                                        name="tripName"
-                                    />
-                                </Form.Group>
-
-
-
-                                <Form.Group >
-                                    <Form.Label>People on the Trip:</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={state.people}
-                                        onChange={handleInputChange}
-                                        name="people"
-
-                                    />
-                                </Form.Group>
-
-                                <Form.Row>
-
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Date (MM/DD/YYYY):</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={state.date}
-                                            name="date"
-                                            onChange={handleInputChange}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Trip Type:</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={state.type}
-                                            name="type"
-                                            onChange={handleInputChange}
-                                        />
-                                    </Form.Group>
-
-
-
-
-                                </Form.Row>
-                                <Form.Row>
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Lat:</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            name="lat"
-                                            value={state.lat}
-                                            onChange={handleInputChange}
-                                        />
-                                    </Form.Group>
-
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Long:</Form.Label>
-                                        <Form.Control
-                                            type="text"
-
-                                            name="long"
-                                            value={state.long}
-                                            onChange={handleInputChange}
-                                        />
-                                    </Form.Group>
-                                </Form.Row>
-
-                                <Form.Group >
-                                    <Form.Label>Trip Details:</Form.Label>
-                                    <Form.Control
-                                        as="textarea"
-                                        rows="6"
-                                        name="description"
-                                        value={state.description}
+                                        name="long"
+                                        value={state.long}
                                         onChange={handleInputChange}
                                     />
                                 </Form.Group>
+                            </Form.Row>
 
-                                <Button variant="primary" type="submit">
-                                    Submit
+                            <Form.Group >
+                                <Form.Label>Trip Details:</Form.Label>
+                                <Form.Control
+                                    as="textarea"
+                                    rows="6"
+                                    name="description"
+                                    value={state.description}
+                                    onChange={handleInputChange}
+                                />
+                            </Form.Group>
+
+                            <Button variant="primary" type="submit">
+                                Submit
                                 </Button>
 
-                            </Form>
-                        </Card>
-                    </Col>
+                        </Form>
+                    </Card>
+                </Col>
 
 
-                </Row>
-            </Container>
-        </div>
+            </Row>
+        </Container>
+    </div>
 
-    )
+)
 }
 
 export default Reports;

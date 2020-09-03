@@ -10,7 +10,7 @@ mongoose.connect(
 
 
 const tripSeed = [{
-    id: "AJK691",
+    tripId: "AJK691",
     tripName: "Vahalla Survey Trip",
     people: ["Alan Grosse", "Joy Palmer", "Elliot Stahl"],
     type: "survey",
@@ -19,8 +19,9 @@ const tripSeed = [{
     description: "Mapped some cave",
     image: "url",
     date: "03/19/2016",
+    
 },{
-  id: "AJK197",
+  tripId: "AJK197",
   tripName: "Neversink Pit",
   people: ["Alan Grosse", "Joy Palmer", "Elliot Stahl"],
   type: "vertical",
@@ -29,8 +30,9 @@ const tripSeed = [{
   description: "Pit bounce",
   image: "url",
   date: "05/19/2015",
+  
 },{
-  id: "AJK379",
+  tripId: "AJK379",
   tripName: "Montague Cave Trip",
   people: ["Alan Grosse", "Joy Palmer", "Elliot Stahl"],
   type: "horizontal",
@@ -39,6 +41,7 @@ const tripSeed = [{
   description: "Photo trip",
   image: "url",
   date: "07/23/2015",
+  
 }]
 
 db.Trip

@@ -4,16 +4,16 @@ const Schema = mongoose.Schema;
 
 
 const tripSchema = new Schema({
-    id: { type: String, required: true },
+    tripId: { type: String },
     tripName: { type: String, required: true },
-    people: [{type: String, required: true}],
+    people: [{type: String}],
     type: {type: String},
-    lat: {type: String, trim: true},
-    long: {type: String, trim: true},
-    description: String,
+    lat: {type: String, trim: true,required: true},
+    long: {type: String, trim: true, required: true},
+    description: {type: String, required: true},
     image: {type: String, trim: true},
-    date: { type: Date, default: Date.now }
-  });
+    date: { type: Date, default: Date.now },
+    });
   
   const Trip = mongoose.model("Trip", tripSchema);
   
