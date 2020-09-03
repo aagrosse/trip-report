@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Map as LeafletMap, TileLayer, GeoJSON, Marker, Popup } from 'react-leaflet';
+import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
 import API from "../../utils/API";
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
