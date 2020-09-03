@@ -5,6 +5,7 @@ import './style.css';
 
 import Modal from 'react-bootstrap/Modal';
 import Button from 'react-bootstrap/Button';
+import esri from 'esri-leaflet';
 
 function Map() {
     const [show, setShow] = useState(false);
@@ -12,8 +13,7 @@ function Map() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [trips, setTrips] = useState([])
-    const accessToken = 'pk.eyJ1IjoiYWFncm9zc2UiLCJhIjoiY2tlOWFzNGtzMXltczJ3cWduZDRwZzFnMCJ9.YTfXUX9hOghZSLXELDHeLQ'
-    const id = 'mapbox.satellite'
+    
 
     const getTrips = () => {
         // const userId = isAuth()._id;
@@ -108,7 +108,7 @@ function Map() {
                 <TileLayer
                     key={'tile-layer'}
                     attribution={'&copy <a href="http://osm.org/copyright">OpenStreetMap contributors</a>'}
-                    url={'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png'}
+                    url={'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'}
                 // url={`https://api.mapbox.com/v4/mapbox.outdoors/1/0/0@2x.jpg90?access_token=${accessToken}`}
 
                 />
