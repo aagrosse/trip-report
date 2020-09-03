@@ -108,7 +108,7 @@ function Map() {
                 <TileLayer
                     key={'tile-layer'}
                     attribution={'&copy <a href="http://osm.org/copyright">OpenStreetMap contributors</a>'}
-                    url={'https://cartodb-basemaps-{s}.global.ssl.fastly.net/light_all/{z}/{x}/{y}.png'}
+                    url={'https://{s}.basemaps.cartocdn.com/rastertiles/voyager_labels_under/{z}/{x}/{y}.png'}
                 // url={`https://api.mapbox.com/v4/mapbox.outdoors/1/0/0@2x.jpg90?access_token=${accessToken}`}
 
                 />
