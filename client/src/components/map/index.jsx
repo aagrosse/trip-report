@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { Map as LeafletMap, TileLayer, Marker, Popup } from 'react-leaflet';
+import { Map as LeafletMap, TileLayer, Marker } from 'react-leaflet';
 import API from "../../utils/API";
 import Modal from 'react-bootstrap/Modal';
+import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './style.css';
 
@@ -11,7 +12,8 @@ function Map() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [trips, setTrips] = useState([])
-
+    const [attribution, setAttribution] = useState('Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community')
+    const [tile, setTile] = useState(true)
 
     const getTrips = () => {
         // const userId = isAuth()._id;
@@ -83,11 +85,13 @@ function Map() {
             )
         })
     }
+  
 
 
     useEffect(() => { getTrips(); }, []);
     return (
         <div id="mapid">
+
             <LeafletMap
                 key={'leaflet-map-'}
                 center={[34.9, -85.6]}
@@ -103,14 +107,22 @@ function Map() {
             >
                 {renderMarkers()}
 
-
+                {tile ? 
                 <TileLayer
                     key={'tile-layer'}
                     attribution={'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'}
                     url={'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'}
-                // url={`https://api.mapbox.com/v4/mapbox.outdoors/1/0/0@2x.jpg90?access_token=${accessToken}`}
-
                 />
+
+
+                :<TileLayer
+                    key={'tile-layer'}
+                    attribution={'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'}
+                    url={'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'}
+                />
+            }
+
+                
 
 
             </LeafletMap>
