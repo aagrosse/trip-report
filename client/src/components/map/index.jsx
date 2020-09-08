@@ -40,8 +40,8 @@ function Map() {
     ];
 
     function changeTiles(e) {
-        console.log(e)
-        if (e.currentTarget.tile === true) {
+        console.log(e.currentTarget)
+        if (e.currentTarget.value === '1') {
             setRadioValue('1')
             setTile(true)
         }
@@ -120,7 +120,7 @@ function Map() {
         })
     }
 
-
+    
 
     useEffect(() => { getTrips(); }, []);
     return (
