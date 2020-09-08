@@ -26,6 +26,18 @@ function Reports() {
     const [newtrips, setNewTrips] = useState([]);
     const [editTrip, setEditTrip] = useState([]);
     const [state, setState] = useState([]);
+    const [modal, setModal] = useState({
+        tripId: "AJK691",
+        tripName: "Vahalla Survey Trip",
+        people: ["Alan Grosse", "Joy Palmer", "Elliot Stahl"],
+        type: "survey",
+        lat: "34.838257106021047",
+        long: "-86.009409930557013",
+        description: "Mapped some cave",
+        image: "url",
+        date: "2015-07-23",
+    });
+
 
     const searchFilter = (e) => {
         const filter = e.target.value;
@@ -68,38 +80,68 @@ function Reports() {
 
     }
 
-    function showModal(trip) {
+
+
+    function showModal(id) {
+        const trip = searchResults.find(x => x._id === id)
+        console.log(trip)
+        setModal({
+            _id: trip._id,
+            tripId: trip.tripId,
+            tripName: trip.tripName,
+            people: trip.people,
+            type: trip.type,
+            // lat: trip.lat,
+            // long: trip.long,
+            description: trip.description,
+            // image: trip.image,
+            date: trip.date,
+        })
         setShow(true)
-        return (
-            <div>
-                <>
-                    <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>{trip.tripName}</Modal.Title>
-                        </Modal.Header>
-                        <Modal.Body>
 
-                            <p><b>Trip ID:</b> {trip.tripId}</p>
-                            <p><b>Trip Name:</b> {trip.tripName}</p>
-                            <p><b>Trip Type:</b> {trip.type}</p>
-                            <p><b>People:</b> {trip.people[0]}</p>
-                            <p>{trip.people[1]}</p>
-                            <p>{trip.people[2]}</p>
-                            <p>{trip.people[3]}</p>
-                            <p><b>Date:</b> {convertDate(trip.date)}</p>
-                            <p><b>Trip Description:</b> {trip.description}</p>
 
-                        </Modal.Body>
-                        <Modal.Footer>
-                            <Button variant="secondary" onClick={handleClose}>
-                                Close
-     </Button>
 
-                        </Modal.Footer>
-                    </Modal>
-                </>
-            </div>
-        )
+        // document.getElementById("tripBody").innerHTML =  
+        // "<p><b>Trip ID:</b> trip.tripId</p>
+        // <p><b>Trip Name:</b> trip.tripName</p>
+        // <p><b>Trip Type:</b> trip.type</p>
+        // <p><b>People:</b> {trip.people[0]}</p>
+        // <p>{trip.people[1]}</p>
+        // <p>{trip.people[2]}</p>
+        // <p>{trip.people[3]}</p>
+        // <p><b>Date:</b> {convertDate(trip.date)}</p>
+        // <p><b>Trip Description:</b> {trip.description}</p>;
+        //     return (
+        //         <div>
+        //             <>
+        //                 <Modal show={show} onHide={handleClose}>
+        //                     <Modal.Header closeButton>
+        //                         <Modal.Title></Modal.Title>
+        //                     </Modal.Header>
+        //                     <Modal.Body>
+
+        //                         <p><b>Trip ID:</b> {trip.tripId}</p>
+        //                         <p><b>Trip Name:</b> {trip.tripName}</p>
+        //                         <p><b>Trip Type:</b> {trip.type}</p>
+        //                         <p><b>People:</b> {trip.people[0]}</p>
+        //                         <p>{trip.people[1]}</p>
+        //                         <p>{trip.people[2]}</p>
+        //                         <p>{trip.people[3]}</p>
+        //                         <p><b>Date:</b> {convertDate(trip.date)}</p>
+        //                         <p><b>Trip Description:</b> {trip.description}</p>
+
+        //                     </Modal.Body>
+        //                     <Modal.Footer>
+        //                         <Button variant="secondary" onClick={handleClose}>
+        //                             Close
+        //  </Button>
+
+        //                     </Modal.Footer>
+        //                 </Modal>
+        //             </>
+
+        //         </div>
+        //     )
 
     };
 
@@ -117,8 +159,8 @@ function Reports() {
                     <td>{trip.tripId}</td>
                     <td>{convertDate(trip.date)}</td>
                     <td>{trip.tripName}</td>
-                    <td><a style={{ cursor: "pointer", color: "blue" }} className='view-trip' onClick={() => showModal(trip)} >VIEW</a></td>
-                    <td><a style={{ cursor: "pointer", color: "orange" }} className='edit-trip' onClick={() => handleEdit(trip)}>EDIT</a></td>
+                    <td><a style={{ cursor: "pointer", color: "blue" }} className='view-trip' id={trip._id} onClick={() => showModal(trip._id)} >VIEW</a></td>
+                    <td><a style={{ cursor: "pointer", color: "orange" }} className='edit-trip' id={trip._id} onClick={() => handleEdit(trip)}>EDIT</a></td>
                     <td><a style={{ cursor: "pointer", color: "red" }} className='delete-trip' id={trip._id} onClick={() => confirmDelete(trip)}>DELETE</a></td>
 
 
@@ -260,6 +302,32 @@ function Reports() {
             {/* <ToastContainer /> */}
 
             <Container>
+                <>
+                    <Modal show={show} onHide={handleClose}>
+                        <Modal.Header closeButton>
+                            <Modal.Title >{modal.tripName}</Modal.Title>
+                        </Modal.Header>
+                        <Modal.Body>
+                            <p><b>Trip ID:</b> {modal.tripId}</p>
+                            <p><b>Trip Name:</b> {modal.tripName}</p>
+                            <p><b>Trip Type:</b> {modal.type}</p>
+                            <p><b>People:</b> {modal.people[0]}</p>
+                            <p>{modal.people[1]}</p>
+                            <p>{modal.people[2]}</p>
+                            <p>{modal.people[3]}</p>
+                            <p><b>Date:</b> {convertDate(modal.date)}</p>
+                            <p><b>Trip Description:</b> {modal.description}</p>
+
+
+                        </Modal.Body>
+                        <Modal.Footer>
+                            <Button variant="secondary" onClick={handleClose}>
+                                Close
+     </Button>
+
+                        </Modal.Footer>
+                    </Modal>
+                </>
                 <Row>
                     <Col>
 
