@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState} from 'react';
 
 import ButtonGroup from 'react-bootstrap/ButtonGroup';
 import ToggleButton from 'react-bootstrap/ToggleButton';
@@ -6,13 +6,21 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 
 
 
-function Toggle() {
+function Toggle(props) {
+
+    
     
     const [radioValue, setRadioValue] = useState('1');
+
+    function changeTiles (e,props){
+      // setRadioValue(e.currentTarget.value)
+      // props.toggles(e.currentTarget.tile) 
+    }
   
     const radios = [
-      { name: 'Satallite', value: '1' },
-      { name: 'Topo', value: '2' },
+      { name: 'Topo', value: '1', tile: true},
+      { name: 'Satallite', value: '2', tile: false},
+      
       
     ];
   
@@ -27,7 +35,7 @@ function Toggle() {
               name="radio"
               value={radio.value}
               checked={radioValue === radio.value}
-              onChange={(e) => setRadioValue(e.currentTarget.value)}
+              onChange={(e) => changeTiles(e, props)}
             >
               {radio.name}
             </ToggleButton>

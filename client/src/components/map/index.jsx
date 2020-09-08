@@ -6,13 +6,17 @@ import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import './style.css';
 
+import ButtonGroup from 'react-bootstrap/ButtonGroup';
+import ToggleButton from 'react-bootstrap/ToggleButton';
+
+
 function Map() {
     const [show, setShow] = useState(false);
 
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [trips, setTrips] = useState([])
-    const [attribution, setAttribution] = useState('Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community')
+
     const [tile, setTile] = useState(true)
 
     const getTrips = () => {
@@ -24,6 +28,36 @@ function Map() {
             })
             .catch((err) => console.log(err));
     };
+
+    const [radioValue, setRadioValue] = useState('1');
+
+    const radios = [
+
+        { name: 'Satallite', value: '2', tile: false },
+        { name: 'Topo', value: '1', tile: true },
+
+
+    ];
+
+    function changeTiles(e) {
+        console.log(e)
+        if (e.currentTarget.tile === true) {
+            setRadioValue('1')
+            setTile(true)
+        }
+        else {
+            setRadioValue('2')
+            setTile(false)
+        }
+
+    }
+
+  
+
+
+
+
+
 
     function convertDate(x) {
         var parts = x.split('-');
@@ -85,12 +119,34 @@ function Map() {
             )
         })
     }
-  
+
 
 
     useEffect(() => { getTrips(); }, []);
     return (
         <div id="mapid">
+
+            <>
+                <ButtonGroup toggle style={{ zIndex: "500", position: "absolute", margin: "20px 50px" }}>
+                    {radios.map((radio, idx) => (
+                        <ToggleButton
+                            key={idx}
+                            type="radio"
+                            variant="secondary"
+                            tile= {radio.tile}
+                            name="radio"
+                            value={radio.value}
+                            checked={radioValue === radio.value}
+                            onChange={(e) => changeTiles(e)}
+                        >
+                            {radio.name}
+                        </ToggleButton>
+                    ))}
+                </ButtonGroup>
+            </>
+
+
+
 
             <LeafletMap
                 key={'leaflet-map-'}
@@ -107,26 +163,26 @@ function Map() {
             >
                 {renderMarkers()}
 
-                {tile ? 
-                <TileLayer
-                    key={'tile-layer'}
-                    attribution={'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'}
-                    url={'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'}
-                />
+                {tile ?
+                    <TileLayer
+                        key={'tile-layer'}
+                        attribution={'Tiles &copy; Esri &mdash; Esri, DeLorme, NAVTEQ, TomTom, Intermap, iPC, USGS, FAO, NPS, NRCAN, GeoBase, Kadaster NL, Ordnance Survey, Esri Japan, METI, Esri China (Hong Kong), and the GIS User Community'}
+                        url={'https://server.arcgisonline.com/ArcGIS/rest/services/World_Topo_Map/MapServer/tile/{z}/{y}/{x}'}
+                    />
 
 
-                :<TileLayer
-                    key={'tile-layer'}
-                    attribution={'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'}
-                    url={'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'}
-                />
-            }
+                    : <TileLayer
+                        key={'tile-layer'}
+                        attribution={'Tiles &copy; Esri &mdash; Source: Esri, i-cubed, USDA, USGS, AEX, GeoEye, Getmapping, Aerogrid, IGN, IGP, UPR-EGP, and the GIS User Community'}
+                        url={'https://server.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}'}
+                    />
+                }
 
-                
+
 
 
             </LeafletMap>
-        </div>
+        </div >
 
     )
 }
