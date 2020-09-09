@@ -98,51 +98,6 @@ function Reports() {
             date: trip.date,
         })
         setShow(true)
-
-
-
-        // document.getElementById("tripBody").innerHTML =  
-        // "<p><b>Trip ID:</b> trip.tripId</p>
-        // <p><b>Trip Name:</b> trip.tripName</p>
-        // <p><b>Trip Type:</b> trip.type</p>
-        // <p><b>People:</b> {trip.people[0]}</p>
-        // <p>{trip.people[1]}</p>
-        // <p>{trip.people[2]}</p>
-        // <p>{trip.people[3]}</p>
-        // <p><b>Date:</b> {convertDate(trip.date)}</p>
-        // <p><b>Trip Description:</b> {trip.description}</p>;
-        //     return (
-        //         <div>
-        //             <>
-        //                 <Modal show={show} onHide={handleClose}>
-        //                     <Modal.Header closeButton>
-        //                         <Modal.Title></Modal.Title>
-        //                     </Modal.Header>
-        //                     <Modal.Body>
-
-        //                         <p><b>Trip ID:</b> {trip.tripId}</p>
-        //                         <p><b>Trip Name:</b> {trip.tripName}</p>
-        //                         <p><b>Trip Type:</b> {trip.type}</p>
-        //                         <p><b>People:</b> {trip.people[0]}</p>
-        //                         <p>{trip.people[1]}</p>
-        //                         <p>{trip.people[2]}</p>
-        //                         <p>{trip.people[3]}</p>
-        //                         <p><b>Date:</b> {convertDate(trip.date)}</p>
-        //                         <p><b>Trip Description:</b> {trip.description}</p>
-
-        //                     </Modal.Body>
-        //                     <Modal.Footer>
-        //                         <Button variant="secondary" onClick={handleClose}>
-        //                             Close
-        //  </Button>
-
-        //                     </Modal.Footer>
-        //                 </Modal>
-        //             </>
-
-        //         </div>
-        //     )
-
     };
 
 
@@ -242,52 +197,55 @@ function Reports() {
 
 
         let data = state
+        searchResults.find(x => x._id === data._id) ?
 
-        // data.update ?
-        //  API.updateTrip({
-
-        //         ...data,
-        //         ...editTrip,
-        //         _id: data._id,
-        //         TripId: data.TripId,
-        //         tripName: data.tripName,
-        //         people: data.people,
-        //         type: data.type,
-        //         lat: data.lat,
-        //         long: data.long,
-        //         description: data.description,
-        //         image: data.image,
-        //         date: data.date,
-        //         update: true
-
-        //     })
+            console.log(searchResults.find(x => x._id === data._id))
+            //  API.updateTrip({
 
 
-        // : 
-        API.uploadTrips({
+            //         _id: data._id,
+            //         TripId: data.TripId,
+            //         tripName: data.tripName,
+            //         people: data.people,
+            //         type: data.type,
+            //         lat: data.lat,
+            //         long: data.long,
+            //         description: data.description,
+            //         image: data.image,
+            //         date: data.date,
 
 
-            tripId: data.tripId,
-            tripName: data.tripName,
-            people: data.people,
-            type: data.type,
-            lat: data.lat,
-            long: data.long,
-            description: data.description,
-            image: data.image,
-            date: data.date,
+            //     })
+
+
+            :
+            API.uploadTrips({
+
+
+                tripId: data.tripId,
+                tripName: data.tripName,
+                people: data.people,
+                type: data.type,
+                lat: data.lat,
+                long: data.long,
+                description: data.description,
+                image: data.image,
+                date: data.date,
 
 
 
 
-        })
-
-
-            .then((result) => {
             })
-            .catch((err) => {
-                console.log(err);
-            });
+
+
+                .then((result) => {
+                    console.log(result)
+                })
+                .then(getTrips())
+
+                .catch((err) => {
+                    console.log(err);
+                });
 
 
 
@@ -397,7 +355,7 @@ function Reports() {
                                     <Form.Control
                                         type="text"
 
-                                        value={state.tripId}
+                                        value={state.tripId || ""}
                                         onChange={handleInputChange}
                                         name="tripId"
                                     />
@@ -412,7 +370,7 @@ function Reports() {
                                     <Form.Control
                                         type="text"
 
-                                        value={state.tripName}
+                                        value={state.tripName || ""}
                                         onChange={handleInputChange}
                                         name="tripName"
                                     />
@@ -424,7 +382,7 @@ function Reports() {
                                     <Form.Label>People on the Trip:</Form.Label>
                                     <Form.Control
                                         type="text"
-                                        value={state.people}
+                                        value={state.people || ""}
                                         onChange={handleInputChange}
                                         name="people"
 
@@ -437,7 +395,7 @@ function Reports() {
                                         <Form.Label>Date (MM/DD/YYYY):</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={state.date}
+                                            value={state.date || ""}
                                             name="date"
                                             onChange={handleInputChange}
                                         />
@@ -446,7 +404,7 @@ function Reports() {
                                         <Form.Label>Trip Type:</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={state.type}
+                                            value={state.type || ""}
                                             name="type"
                                             onChange={handleInputChange}
                                         />
@@ -462,7 +420,7 @@ function Reports() {
                                         <Form.Control
                                             type="text"
                                             name="lat"
-                                            value={state.lat}
+                                            value={state.lat || ""}
                                             onChange={handleInputChange}
                                         />
                                     </Form.Group>
@@ -473,7 +431,7 @@ function Reports() {
                                             type="text"
 
                                             name="long"
-                                            value={state.long}
+                                            value={state.long || ""}
                                             onChange={handleInputChange}
                                         />
                                     </Form.Group>
@@ -485,7 +443,7 @@ function Reports() {
                                         as="textarea"
                                         rows="6"
                                         name="description"
-                                        value={state.description}
+                                        value={state.description || ""}
                                         onChange={handleInputChange}
                                     />
                                 </Form.Group>
