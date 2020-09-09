@@ -26,6 +26,7 @@ module.exports = {
     },
     update: function(req, res) {
       const { _id } = req.body;
+      console.log(_id)
       db.Trip
         .findOneAndUpdate(_id, req.body)
         .then(dbModel => res.json(dbModel))

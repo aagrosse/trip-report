@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-
 import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Table from 'react-bootstrap/Table';
@@ -19,12 +18,11 @@ import Modal from 'react-bootstrap/Modal';
 function Reports() {
 
     const [show, setShow] = useState(false);
-
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [searchResults, setSearchResults] = useState([]);
     const [newtrips, setNewTrips] = useState([]);
-    const [editTrip, setEditTrip] = useState([]);
+    // const [editTrip, setEditTrip] = useState([]);
     const [state, setState] = useState([]);
     const [modal, setModal] = useState({
         tripId: "AJK691",
@@ -55,14 +53,9 @@ function Reports() {
                 console.log("all trips from db:", results.data);
                 setNewTrips(results.data);
                 setSearchResults(results.data);
-
-
-
             })
             .catch((err) => console.log(err));
     };
-
-
 
 
     function renderTableHeader() {
@@ -77,10 +70,7 @@ function Reports() {
         var day = parts[2].split('', 2);
         var newdate = parts[1] + '/' + day[0] + day[1] + '/' + parts[0];
         return newdate
-
     }
-
-
 
     function showModal(id) {
         const trip = searchResults.find(x => x._id === id)
@@ -101,15 +91,9 @@ function Reports() {
     };
 
 
-
-
-
     function renderTableData() {
         return searchResults.map((trip) => {
-
-
             return (
-
                 <tr key={trip._id}>
                     <td>{trip.tripId}</td>
                     <td>{convertDate(trip.date)}</td>
@@ -117,32 +101,21 @@ function Reports() {
                     <td><a style={{ cursor: "pointer", color: "blue" }} className='view-trip' id={trip._id} onClick={() => showModal(trip._id)} >VIEW</a></td>
                     <td><a style={{ cursor: "pointer", color: "orange" }} className='edit-trip' id={trip._id} onClick={() => handleEdit(trip)}>EDIT</a></td>
                     <td><a style={{ cursor: "pointer", color: "red" }} className='delete-trip' id={trip._id} onClick={() => confirmDelete(trip)}>DELETE</a></td>
-
-
                 </tr>
             )
         })
     }
 
 
-
-
-
-
-
-    function getTrip(id) {
-        console.log(id)
-        API.getTrip(id)
-            .then((result) => {
-                setEditTrip(result.data)
-
-                // console.log("GOT Trip", result.data);
-            })
-    }
+    // function getTrip(id) {
+    //     console.log(id)
+    //     API.getTrip(id)
+    //         .then((result) => {
+    //             setEditTrip(result.data)
+    //         })
+    // }
 
     function handleEdit(trip) {
-        const { tripName, people, type, lat, long, description, image, date, tripId } = trip
-
         setState({
             _id: trip._id,
             tripId: trip.tripId,
@@ -154,16 +127,9 @@ function Reports() {
             description: trip.description,
             image: trip.image,
             date: trip.date,
-
-
         });
-        setEditTrip(trip)
-        console.log(trip)
-        getTrip(trip._id)
-
-
-        // setPage(true);
-        console.log("go to edit")
+        // setEditTrip(trip)
+        // getTrip(trip._id)
     }
 
     const confirmDelete = (trip) => {
@@ -181,7 +147,6 @@ function Reports() {
                 // toast("Your trip has been deleted")
             })
             .catch((err) => console.log("ERROR:" + err));
-
     };
 
 
@@ -194,28 +159,25 @@ function Reports() {
 
     const handleSubmit = e => {
         e.preventDefault();
-
-
         let data = state
         searchResults.find(x => x._id === data._id) ?
 
-            console.log(searchResults.find(x => x._id === data._id))
-            //  API.updateTrip({
-
-
-            //         _id: data._id,
-            //         TripId: data.TripId,
-            //         tripName: data.tripName,
-            //         people: data.people,
-            //         type: data.type,
-            //         lat: data.lat,
-            //         long: data.long,
-            //         description: data.description,
-            //         image: data.image,
-            //         date: data.date,
-
-
-            //     })
+            API.updateTrip({
+                _id: data._id,
+                TripId: data.TripId,
+                tripName: data.tripName,
+                people: data.people,
+                type: data.type,
+                lat: data.lat,
+                long: data.long,
+                description: data.description,
+                image: data.image,
+                date: data.date,
+            })
+            .then(getTrips())
+            .catch((err) => {
+                    console.log(err);
+                })
 
 
             :
