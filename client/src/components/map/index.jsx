@@ -16,18 +16,30 @@ function Map() {
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [trips, setTrips] = useState([])
-
+    const [newtrips, setNewTrips] = useState([]);
     const [tile, setTile] = useState(true)
+    const [modal, setModal] = useState({
+        tripId: "AJK691",
+        tripName: "Vahalla Survey Trip",
+        people: ["Alan Grosse", "Joy Palmer", "Elliot Stahl"],
+        type: "survey",
+        lat: "34.838257106021047",
+        long: "-86.009409930557013",
+        description: "Mapped some cave",
+        image: "url",
+        date: "2015-07-23",
+    });
 
     const getTrips = () => {
-        // const userId = isAuth()._id;
         API.getTrips()
             .then((results) => {
                 console.log("all trips from db:", results.data);
-                setTrips(results.data);
+                setNewTrips(results.data);
             })
             .catch((err) => console.log(err));
     };
+    
+    
 
     const [radioValue, setRadioValue] = useState('1');
 
@@ -52,7 +64,24 @@ function Map() {
 
     }
 
-  
+    function showModal(id) {
+        
+        const trip = newtrips.find(x => x._id === id)
+        console.log(trip)
+        setModal({
+            _id: trip._id,
+            tripId: trip.tripId,
+            tripName: trip.tripName,
+            people: trip.people,
+            type: trip.type,
+            // lat: trip.lat,
+            // long: trip.long,
+            description: trip.description,
+            // image: trip.image,
+            date: trip.date,
+        })
+        setShow(true)
+    };
 
 
 
@@ -70,7 +99,7 @@ function Map() {
 
 
     function renderMarkers() {
-        return trips.map((trip) => {
+        return newtrips.map((trip) => {
 
 
             return (
@@ -80,7 +109,7 @@ function Map() {
                     // icon= {redMarker}
                     zIndexOffset={1}
                     opacity={20}
-                    onClick={handleShow}
+                    onClick={() => showModal(trip._id)}
                     title={trip.tripName}
 
                 >
@@ -91,19 +120,19 @@ function Map() {
 
                         <Modal show={show} onHide={handleClose}>
                             <Modal.Header className="paper">
-                                <Modal.Title>{trip.tripName}</Modal.Title>
+                                <Modal.Title>{modal.tripName}</Modal.Title>
                             </Modal.Header>
                             <Modal.Body className="paper2">
                                 <div className="handwriting">
-                                <p><b>Trip ID:</b> {trip.id}</p>
-                                <p><b>Trip Name:</b> {trip.tripName}</p>
-                                <p><b>Trip Type:</b> {trip.type}</p>
-                                <p><b>People:</b> {trip.people[0]}</p>
-                                <p>{trip.people[1]}</p>
-                                <p>{trip.people[2]}</p>
-                                <p>{trip.people[3]}</p>
-                                <p><b>Date:</b> {convertDate(trip.date)}</p>
-                                <p><b>Trip Description:</b> {trip.description}</p>
+                                <p><b>Trip ID:</b> {modal.tripId}</p>
+                                <p><b>Trip Name:</b> {modal.tripName}</p>
+                                <p><b>Trip Type:</b> {modal.type}</p>
+                                <p><b>People:</b> {modal.people[0]}</p>
+                                <p>{modal.people[1]}</p>
+                                <p>{modal.people[2]}</p>
+                                <p>{modal.people[3]}</p>
+                                <p><b>Date:</b> {convertDate(modal.date)}</p>
+                                <p><b>Trip Description:</b> {modal.description}</p>
                                 </div>
                             </Modal.Body>
                             <Modal.Footer className="paper2">
