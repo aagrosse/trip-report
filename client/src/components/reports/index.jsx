@@ -22,7 +22,6 @@ function Reports() {
     const handleShow = () => setShow(true);
     const [searchResults, setSearchResults] = useState([]);
     const [newtrips, setNewTrips] = useState([]);
-    // const [editTrip, setEditTrip] = useState([]);
     const [state, setState] = useState([]);
     const [modal, setModal] = useState({
         tripId: "AJK691",
@@ -107,14 +106,6 @@ function Reports() {
     }
 
 
-    // function getTrip(id) {
-    //     console.log(id)
-    //     API.getTrip(id)
-    //         .then((result) => {
-    //             setEditTrip(result.data)
-    //         })
-    // }
-
     function handleEdit(trip) {
         setState({
             _id: trip._id,
@@ -128,8 +119,6 @@ function Reports() {
             image: trip.image,
             date: trip.date,
         });
-        // setEditTrip(trip)
-        // getTrip(trip._id)
     }
 
     const confirmDelete = (trip) => {
@@ -174,16 +163,14 @@ function Reports() {
                 image: data.image,
                 date: data.date,
             })
-            .then(getTrips())
-            .catch((err) => {
+                .then(getTrips())
+                .catch((err) => {
                     console.log(err);
                 })
 
 
             :
             API.uploadTrips({
-
-
                 tripId: data.tripId,
                 tripName: data.tripName,
                 people: data.people,
@@ -193,13 +180,7 @@ function Reports() {
                 description: data.description,
                 image: data.image,
                 date: data.date,
-
-
-
-
             })
-
-
                 .then((result) => {
                     console.log(result)
                 })
@@ -208,10 +189,6 @@ function Reports() {
                 .catch((err) => {
                     console.log(err);
                 });
-
-
-
-
     }
 
     useEffect(() => { getTrips(); }, []);
@@ -224,10 +201,10 @@ function Reports() {
             <Container>
                 <>
                     <Modal show={show} onHide={handleClose}>
-                        <Modal.Header closeButton>
+                        <Modal.Header closeButton className="paper">
                             <Modal.Title >{modal.tripName}</Modal.Title>
                         </Modal.Header>
-                        <Modal.Body>
+                        <Modal.Body className="paper2">
                             <p><b>Trip ID:</b> {modal.tripId}</p>
                             <p><b>Trip Name:</b> {modal.tripName}</p>
                             <p><b>Trip Type:</b> {modal.type}</p>
@@ -240,10 +217,10 @@ function Reports() {
 
 
                         </Modal.Body>
-                        <Modal.Footer>
+                        <Modal.Footer className="paper2">
                             <Button variant="secondary" onClick={handleClose}>
                                 Close
-     </Button>
+                            </Button>
 
                         </Modal.Footer>
                     </Modal>
@@ -273,7 +250,7 @@ function Reports() {
                         </Card>
 
                         <Acard
-                            className='card'
+                            className='tripsCard card'
                             title="Trip Reports"
                             category="Welcome to Your Report Library"
                             ctTableFullWidth

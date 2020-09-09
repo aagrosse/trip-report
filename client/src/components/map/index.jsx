@@ -90,11 +90,11 @@ function Map() {
 
 
                         <Modal show={show} onHide={handleClose}>
-                            <Modal.Header closeButton>
+                            <Modal.Header className="paper">
                                 <Modal.Title>{trip.tripName}</Modal.Title>
                             </Modal.Header>
-                            <Modal.Body>
-
+                            <Modal.Body className="paper2">
+                                <div className="handwriting">
                                 <p><b>Trip ID:</b> {trip.id}</p>
                                 <p><b>Trip Name:</b> {trip.tripName}</p>
                                 <p><b>Trip Type:</b> {trip.type}</p>
@@ -104,9 +104,9 @@ function Map() {
                                 <p>{trip.people[3]}</p>
                                 <p><b>Date:</b> {convertDate(trip.date)}</p>
                                 <p><b>Trip Description:</b> {trip.description}</p>
-
+                                </div>
                             </Modal.Body>
-                            <Modal.Footer>
+                            <Modal.Footer className="paper2">
                                 <Button variant="secondary" onClick={handleClose}>
                                     Close
                                     </Button>

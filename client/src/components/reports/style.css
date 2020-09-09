@@ -12,3 +12,14 @@ body {
     background-image: url('../../assets/topography.png');
 }
 
+.paper{
+    background-image: url('../../assets/seamless_paper_texture.png');
+}
+
+.paper2{
+    background-image: url('../../assets/lightpaperfibers.png');
+}
+
+.header{
+    padding: 1.5em;
+}
