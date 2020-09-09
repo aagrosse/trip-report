@@ -13,10 +13,14 @@ import './style.css';
 // import { ToastContainer, toast } from "react-toastify";
 import API from "../../utils/API";
 import Modal from 'react-bootstrap/Modal';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faSort } from '@fortawesome/free-solid-svg-icons'
 
 
 function Reports() {
 
+    const [filteredUsers, setFilteredUsers] = useState([]);
+    const [sortOrder, setSortOrder] = useState('descend');
     const [show, setShow] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
@@ -60,9 +64,40 @@ function Reports() {
     function renderTableHeader() {
         let header = ["Id", "Date", "Title", "View", "Edit", "Delete"]
         return header.map((key, index) => {
-            return <th key={index}>{key.toUpperCase()}</th>
+            return <th key={index}>{key.toUpperCase()}
+            {/* <button className="ml-1 "> */}
+      
+            <FontAwesomeIcon icon={faSort} onClick={() => sort()} className="ml-2 "/>                   
+            {/* </button> */}
+            </th>
         })
     }
+
+    const sort = () => {
+        if (sortOrder === 'descend') {
+            const filteredUsersList = searchResults.sort((a, b) => {
+                if (a.tripName < b.tripName) { return -1; }
+                if (a.tripName > b.tripName) { return 1; }
+            });
+            setSearchResults(filteredUsersList);
+            setSortOrder('ascend');
+            console.log(filteredUsers)
+
+        } else {
+            const filteredUsersList = searchResults.sort((a, b) => {
+                if (a.tripName < b.tripName) { return 1; }
+                if (a.tripName > b.tripName) { return -1; }
+            });
+
+            setSearchResults(filteredUsersList);
+            setSortOrder('descend');
+
+        }
+    }
+
+
+
+
 
     function convertDate(x) {
         var parts = x.split('-');
