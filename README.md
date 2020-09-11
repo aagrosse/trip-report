@@ -15,9 +15,11 @@ Node, React, Express, Mongo, leaflet, react-bootstrap
 ## Screen Shots
 ### Map Screen
 ![image](./client/src/assets/map.PNG)
+On the map screen your trips will apear as pins on the map.  you can click on the pins to see your report.  you also have the option to switch from topo (the default) and satilite view.
 
 ### Report Screen
 ![image](./client/src/assets/report.PNG)
+The report screen gives you the option to start a new report or edit an existing one.  you also have the option to sort by the values by clicking the arrows by the column titles or you can search by typing in the search field provided.
 
 ## Links
 [Live App](https://tripreport.herokuapp.com/)
