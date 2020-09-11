@@ -14,10 +14,10 @@ Node, React, Express, Mongo, leaflet, react-bootstrap
 
 ## Screen Shots
 ### Map Screen
-![image]()
+![image](./client/src/assets/map.PNG)
 
 ### Report Screen
-![image]()
+![image](./client/src/assets/report.PNG)
 
 ## Links
 [Live App](https://tripreport.herokuapp.com/)

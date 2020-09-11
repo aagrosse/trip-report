@@ -199,6 +199,7 @@ function Reports() {
                 date: data.date,
             })
                 .then(getTrips())
+                // .then(setState([]))
                 .catch((err) => {
                     console.log(err);
                 })
@@ -220,7 +221,7 @@ function Reports() {
                     console.log(result)
                 })
                 .then(getTrips())
-
+                // .then(setState([]))
                 .catch((err) => {
                     console.log(err);
                 });
