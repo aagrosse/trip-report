@@ -26,6 +26,7 @@ function Reports() {
     const handleShow = () => setShow(true);
     const [searchResults, setSearchResults] = useState([]);
     const [newtrips, setNewTrips] = useState([]);
+    
     const [state, setState] = useState([]);
     const [modal, setModal] = useState({
         tripId: "AJK691",
@@ -107,7 +108,8 @@ function Reports() {
     }
 
 
-    const sortName = () => {
+    const sortName = (key) => {
+
         if (sortOrder === 'descend') {
             const filteredUsersList = searchResults.sort((a, b) => {
                 if (a.tripName < b.tripName) { return -1; }
@@ -338,8 +340,8 @@ function Reports() {
                     </Modal>
                 </>
                 <Row>
-                    <Col>
-
+                    <Col xs={9}>
+                        
                         <Card className='cardSearch mb-md-4'>
                             <Card.Body>
                                 <Card.Title>Search Your Trips</Card.Title>
@@ -360,6 +362,21 @@ function Reports() {
                                 </Form>
                             </Card.Body>
                         </Card>
+                        </Col >
+                        <Col xs={3}>
+                        <Card className='cardCreate mb-md-4'>
+                            <Card.Body>
+                            <center>
+                            <Card.Title>Start Here</Card.Title>
+                            
+                                <Button variant="outline-info">Create a New Report</Button>{' '}
+                                </center>
+                            </Card.Body>
+                        </Card>
+                        </Col>
+</Row>
+<Row>
+    <Col>
 
                         <Acard
                             className='tripsCard card'
@@ -394,11 +411,9 @@ function Reports() {
 
                     </Col>
 
-                    <Col>
+                    {/* <Col>
                         <Card style={{ padding: '1em' }} className='card'>
-                            {/* <Col xs={6} md={4}>
-                                <Image src="holder.js/171x180" rounded />
-                            </Col> */}
+                           
                             <Card.Title style={{ textAlign: 'center' }}>Trip Report</Card.Title>
                             <Form onSubmit={handleSubmit}>
                                 <Form.Group controlId="formGridName">
@@ -505,7 +520,7 @@ function Reports() {
 
                             </Form>
                         </Card>
-                    </Col>
+                    </Col> */}
 
 
                 </Row>
