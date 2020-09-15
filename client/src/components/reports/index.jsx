@@ -61,19 +61,53 @@ function Reports() {
     };
 
 
+    // function renderTableHeader() {
+    //     let header = ["Id", "Date", "Title", "View", "Edit", "Delete"]
+    //     return (
+    //         <tr>
+    //         <th key= "0" >ID
+    //         <FontAwesomeIcon icon={faSort} onClick={() => sort()} className="ml-2 " />
+    //         </th>,
+
+    //         <th key= "1">DATE
+    //         <FontAwesomeIcon icon={faSort} onClick={() => sort()} className="ml-2 " />
+    //         </th>,
+
+    //         <th key="2">TITLE
+    //         <FontAwesomeIcon icon={faSort} onClick={() => sort()} className="ml-2 " />
+    //         </th>,
+
+    //         <th key="3">VIEW</th>,
+
+    //         <th key="4">EDIT</th>,
+
+    //         <th key="5">DELETE</th>
+    //         </tr>
+    //     )
+    // }
+
     function renderTableHeader() {
         let header = ["Id", "Date", "Title", "View", "Edit", "Delete"]
         return header.map((key, index) => {
             return <th key={index}>{key.toUpperCase()}
-            {/* <button className="ml-1 "> */}
-      
-            <FontAwesomeIcon icon={faSort} onClick={() => sort()} className="ml-2 "/>                   
-            {/* </button> */}
+
+                {key === "Id" ?
+                    <FontAwesomeIcon icon={faSort} onClick={() => sortId()} className="ml-2 " /> : null
+                }
+
+                {key === "Date" ?
+                    <FontAwesomeIcon icon={faSort} onClick={() => sortDate()} className="ml-2 " /> : null
+                }
+
+                {key === "Title" ?
+                    <FontAwesomeIcon icon={faSort} onClick={() => sortName()} className="ml-2 " /> : null
+                }
             </th>
         })
     }
 
-    const sort = () => {
+
+    const sortName = () => {
         if (sortOrder === 'descend') {
             const filteredUsersList = searchResults.sort((a, b) => {
                 if (a.tripName < b.tripName) { return -1; }
@@ -95,7 +129,49 @@ function Reports() {
         }
     }
 
+    const sortDate = () => {
+        if (sortOrder === 'descend') {
+            const filteredUsersList = searchResults.sort((a, b) => {
+                if (a.date < b.date) { return -1; }
+                if (a.date > b.date) { return 1; }
+            });
+            setSearchResults(filteredUsersList);
+            setSortOrder('ascend');
+            console.log(filteredUsers)
 
+        } else {
+            const filteredUsersList = searchResults.sort((a, b) => {
+                if (a.date < b.date) { return 1; }
+                if (a.date > b.date) { return -1; }
+            });
+
+            setSearchResults(filteredUsersList);
+            setSortOrder('descend');
+
+        }
+    }
+
+    const sortId = () => {
+        if (sortOrder === 'descend') {
+            const filteredUsersList = searchResults.sort((a, b) => {
+                if (a.tripId < b.tripId) { return -1; }
+                if (a.tripId > b.tripId) { return 1; }
+            });
+            setSearchResults(filteredUsersList);
+            setSortOrder('ascend');
+            console.log(filteredUsers)
+
+        } else {
+            const filteredUsersList = searchResults.sort((a, b) => {
+                if (a.tripId < b.tripId) { return 1; }
+                if (a.tripId > b.tripId) { return -1; }
+            });
+
+            setSearchResults(filteredUsersList);
+            setSortOrder('descend');
+
+        }
+    }
 
 
 
