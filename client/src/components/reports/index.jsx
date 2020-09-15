@@ -30,7 +30,7 @@ function Reports() {
     const [show1, setShow1] = useState(false);
     const handleClose1 = () => setShow1(false);
     const handleShow1 = () => setShow1(true);
-    
+
     const [state, setState] = useState([]);
     const [modal, setModal] = useState({
         tripId: "AJK691",
@@ -281,7 +281,9 @@ function Reports() {
                 image: data.image,
                 date: data.date,
             })
+                .then(handleClose1)   
                 .then(getTrips())
+                
                 // .then(setState([]))
                 .catch((err) => {
                     console.log(err);
@@ -303,7 +305,9 @@ function Reports() {
                 .then((result) => {
                     console.log(result)
                 })
+                .then(handleClose1)
                 .then(getTrips())
+                
                 // .then(setState([]))
                 .catch((err) => {
                     console.log(err);
@@ -346,7 +350,7 @@ function Reports() {
                 </>
                 <Row>
                     <Col xs={9}>
-                        
+
                         <Card className='cardSearch mb-md-4'>
                             <Card.Body>
                                 <Card.Title>Search Your Trips</Card.Title>
@@ -367,24 +371,24 @@ function Reports() {
                                 </Form>
                             </Card.Body>
                         </Card>
-                        </Col >
-                        <Col xs={3}>
+                    </Col >
+                    <Col xs={3}>
                         <Card className='cardCreate mb-md-4'>
                             <Card.Body>
-                            <center>
-                            <Card.Title>Start Here</Card.Title>
-                            
-                                <Button variant="outline-info"onClick={handleShow1}>Create a New Report</Button>{' '}
+                                <center>
+                                    <Card.Title>Start Here</Card.Title>
+
+                                    <Button variant="outline-info" onClick={handleShow1}>Create a New Report</Button>{' '}
                                 </center>
                             </Card.Body>
                         </Card>
-                        </Col>
-</Row>
-<Row>
-    <Col>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
 
                         <Acard
-                            className='tripsCard card'
+                            className='tripsCard card '
                             title="Trip Reports"
                             category="Welcome to Your Report Library"
                             ctTableFullWidth
@@ -392,7 +396,7 @@ function Reports() {
                             content={
                                 <div>
 
-                                    <Table id='tripTable' className="ml-3" striped hover>
+                                    <Table id='tripTable' className="" striped hover>
                                         <tbody>
                                             <tr>{renderTableHeader()}</tr>
                                             {renderTableData()}
@@ -417,119 +421,119 @@ function Reports() {
                     </Col>
 
                     <>
-                    <Modal show={show1} onHide={handleClose1}>
-                        <Card style={{ padding: '1em' }} className='card'>
-                           
-                            <Card.Title style={{ textAlign: 'center' }}>Trip Report</Card.Title>
-                            <Form onSubmit={handleSubmit}>
-                                <Form.Group controlId="formGridName">
-                                    <Form.Label>Trip Id:</Form.Label>
-                                    <Form.Control
-                                        type="text"
+                        <Modal show={show1} onHide={handleClose1}>
+                            <Card style={{ padding: '1em' }} className='card'>
 
-                                        value={state.tripId || ""}
-                                        onChange={handleInputChange}
-                                        name="tripId"
-                                    />
-                                </Form.Group>
-
-
-
-
-
-                                <Form.Group controlId="formGridName">
-                                    <Form.Label>Trip Name:</Form.Label>
-                                    <Form.Control
-                                        type="text"
-
-                                        value={state.tripName || ""}
-                                        onChange={handleInputChange}
-                                        name="tripName"
-                                    />
-                                </Form.Group>
-
-
-
-                                <Form.Group >
-                                    <Form.Label>People on the Trip:</Form.Label>
-                                    <Form.Control
-                                        type="text"
-                                        value={state.people || ""}
-                                        onChange={handleInputChange}
-                                        name="people"
-
-                                    />
-                                </Form.Group>
-
-                                <Form.Row>
-
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Date (MM/DD/YYYY):</Form.Label>
+                                <Card.Title style={{ textAlign: 'center' }}>Trip Report</Card.Title>
+                                <Form onSubmit={handleSubmit}>
+                                    <Form.Group controlId="formGridName">
+                                        <Form.Label>Trip Id:</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            value={state.date || ""}
-                                            name="date"
+
+                                            value={state.tripId || ""}
                                             onChange={handleInputChange}
-                                        />
-                                    </Form.Group>
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Trip Type:</Form.Label>
-                                        <Form.Control
-                                            type="text"
-                                            value={state.type || ""}
-                                            name="type"
-                                            onChange={handleInputChange}
+                                            name="tripId"
                                         />
                                     </Form.Group>
 
 
 
 
-                                </Form.Row>
-                                <Form.Row>
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Lat:</Form.Label>
+
+                                    <Form.Group controlId="formGridName">
+                                        <Form.Label>Trip Name:</Form.Label>
                                         <Form.Control
                                             type="text"
-                                            name="lat"
-                                            value={state.lat || ""}
+
+                                            value={state.tripName || ""}
+                                            onChange={handleInputChange}
+                                            name="tripName"
+                                        />
+                                    </Form.Group>
+
+
+
+                                    <Form.Group >
+                                        <Form.Label>People on the Trip:</Form.Label>
+                                        <Form.Control
+                                            type="text"
+                                            value={state.people || ""}
+                                            onChange={handleInputChange}
+                                            name="people"
+
+                                        />
+                                    </Form.Group>
+
+                                    <Form.Row>
+
+                                        <Form.Group as={Col} >
+                                            <Form.Label>Date (MM/DD/YYYY):</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                value={state.date || ""}
+                                                name="date"
+                                                onChange={handleInputChange}
+                                            />
+                                        </Form.Group>
+                                        <Form.Group as={Col} >
+                                            <Form.Label>Trip Type:</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                value={state.type || ""}
+                                                name="type"
+                                                onChange={handleInputChange}
+                                            />
+                                        </Form.Group>
+
+
+
+
+                                    </Form.Row>
+                                    <Form.Row>
+                                        <Form.Group as={Col} >
+                                            <Form.Label>Lat:</Form.Label>
+                                            <Form.Control
+                                                type="text"
+                                                name="lat"
+                                                value={state.lat || ""}
+                                                onChange={handleInputChange}
+                                            />
+                                        </Form.Group>
+
+                                        <Form.Group as={Col} >
+                                            <Form.Label>Long:</Form.Label>
+                                            <Form.Control
+                                                type="text"
+
+                                                name="long"
+                                                value={state.long || ""}
+                                                onChange={handleInputChange}
+                                            />
+                                        </Form.Group>
+                                    </Form.Row>
+
+                                    <Form.Group >
+                                        <Form.Label>Trip Details:</Form.Label>
+                                        <Form.Control
+                                            as="textarea"
+                                            rows="6"
+                                            name="description"
+                                            value={state.description || ""}
                                             onChange={handleInputChange}
                                         />
                                     </Form.Group>
 
-                                    <Form.Group as={Col} >
-                                        <Form.Label>Long:</Form.Label>
-                                        <Form.Control
-                                            type="text"
-
-                                            name="long"
-                                            value={state.long || ""}
-                                            onChange={handleInputChange}
-                                        />
-                                    </Form.Group>
-                                </Form.Row>
-
-                                <Form.Group >
-                                    <Form.Label>Trip Details:</Form.Label>
-                                    <Form.Control
-                                        as="textarea"
-                                        rows="6"
-                                        name="description"
-                                        value={state.description || ""}
-                                        onChange={handleInputChange}
-                                    />
-                                </Form.Group>
-
-                                <Button variant="primary" type="submit">
-                                    Submit
+                                    <Button variant="primary" type="submit">
+                                        Submit
                                 </Button>
 
-                            </Form>
-                        </Card>
+                                </Form>
+                            </Card>
                         </Modal>
-                        </>
+                    </>
 
-                            </Row>
+                </Row>
             </Container>
         </div>
 
