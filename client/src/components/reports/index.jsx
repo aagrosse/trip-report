@@ -26,6 +26,10 @@ function Reports() {
     const handleShow = () => setShow(true);
     const [searchResults, setSearchResults] = useState([]);
     const [newtrips, setNewTrips] = useState([]);
+
+    const [show1, setShow1] = useState(false);
+    const handleClose1 = () => setShow1(false);
+    const handleShow1 = () => setShow1(true);
     
     const [state, setState] = useState([]);
     const [modal, setModal] = useState({
@@ -220,6 +224,7 @@ function Reports() {
 
 
     function handleEdit(trip) {
+        setShow1(true)
         setState({
             _id: trip._id,
             tripId: trip.tripId,
@@ -369,7 +374,7 @@ function Reports() {
                             <center>
                             <Card.Title>Start Here</Card.Title>
                             
-                                <Button variant="outline-info">Create a New Report</Button>{' '}
+                                <Button variant="outline-info"onClick={handleShow1}>Create a New Report</Button>{' '}
                                 </center>
                             </Card.Body>
                         </Card>
@@ -411,7 +416,8 @@ function Reports() {
 
                     </Col>
 
-                    {/* <Col>
+                    <>
+                    <Modal show={show1} onHide={handleClose1}>
                         <Card style={{ padding: '1em' }} className='card'>
                            
                             <Card.Title style={{ textAlign: 'center' }}>Trip Report</Card.Title>
@@ -520,10 +526,10 @@ function Reports() {
 
                             </Form>
                         </Card>
-                    </Col> */}
+                        </Modal>
+                        </>
 
-
-                </Row>
+                            </Row>
             </Container>
         </div>
 
