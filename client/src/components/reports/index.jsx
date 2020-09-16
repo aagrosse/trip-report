@@ -206,6 +206,11 @@ function Reports() {
         setShow(true)
     };
 
+    function newTrip (){
+        setState([])
+        setShow1(true)
+    }
+
 
     function renderTableData() {
         return searchResults.map((trip) => {
@@ -235,7 +240,7 @@ function Reports() {
             long: trip.long,
             description: trip.description,
             image: trip.image,
-            date: trip.date,
+            date: convertDate(trip.date),
         });
     }
 
@@ -271,7 +276,7 @@ function Reports() {
 
             API.updateTrip({
                 _id: data._id,
-                TripId: data.TripId,
+                tripId: data.tripId,
                 tripName: data.tripName,
                 people: data.people,
                 type: data.type,
@@ -281,9 +286,9 @@ function Reports() {
                 image: data.image,
                 date: data.date,
             })
-                .then(handleClose1)   
+                .then(setShow1(false))
                 .then(getTrips())
-                
+
                 // .then(setState([]))
                 .catch((err) => {
                     console.log(err);
@@ -305,9 +310,9 @@ function Reports() {
                 .then((result) => {
                     console.log(result)
                 })
-                .then(handleClose1)
+                .then(setShow1(false))
                 .then(getTrips())
-                
+
                 // .then(setState([]))
                 .catch((err) => {
                     console.log(err);
@@ -378,7 +383,7 @@ function Reports() {
                                 <center>
                                     <Card.Title>Start Here</Card.Title>
 
-                                    <Button variant="outline-info" onClick={handleShow1}>Create a New Report</Button>{' '}
+                                    <Button variant="outline-info" onClick={() => newTrip()}>Create a New Report</Button>{' '}
                                 </center>
                             </Card.Body>
                         </Card>
