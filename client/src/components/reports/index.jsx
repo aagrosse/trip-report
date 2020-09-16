@@ -10,7 +10,8 @@ import Button from 'react-bootstrap/Button';
 import FormControl from 'react-bootstrap/FormControl';
 // import Image from 'react-bootstrap/Image';
 import './style.css';
-// import { ToastContainer, toast } from "react-toastify";
+import { ToastContainer, toast } from "react-toastify";
+import 'react-toastify/dist/ReactToastify.css';
 import API from "../../utils/API";
 import Modal from 'react-bootstrap/Modal';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -256,7 +257,7 @@ function Reports() {
             .then((res) => {
                 console.log("after delete API", res)
                 getTrips()
-                // toast("Your trip has been deleted")
+                toast("Your trip has been deleted")
             })
             .catch((err) => console.log("ERROR:" + err));
     };
@@ -273,9 +274,10 @@ function Reports() {
         e.preventDefault();
         let data = state
         searchResults.find(x => x._id === data._id) ?
-
+        
             API.updateTrip({
-                _id: data._id,
+                ...data,
+                // _id: data._id,
                 tripId: data.tripId,
                 tripName: data.tripName,
                 people: data.people,
@@ -284,7 +286,12 @@ function Reports() {
                 long: data.long,
                 description: data.description,
                 image: data.image,
-                date: data.date,
+                date: data.date
+            })
+            .then((result) => {
+
+                toast("Your trip has been updated")
+
             })
                 .then(setShow1(false))
                 .then(getTrips())
@@ -309,6 +316,7 @@ function Reports() {
             })
                 .then((result) => {
                     console.log(result)
+                    toast("Your trip has been saved")
                 })
                 .then(setShow1(false))
                 .then(getTrips())
@@ -324,9 +332,10 @@ function Reports() {
     return (
         <div id="reportid">
 
-            {/* <ToastContainer /> */}
+           
 
             <Container>
+            
                 <>
                     <Modal show={show} onHide={handleClose}>
                         <Modal.Header closeButton className="paper">
@@ -353,6 +362,7 @@ function Reports() {
                         </Modal.Footer>
                     </Modal>
                 </>
+                
                 <Row>
                     <Col xs={9}>
 
