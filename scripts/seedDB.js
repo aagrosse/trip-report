@@ -1,5 +1,6 @@
 const mongoose = require("mongoose");
 const db = require("../models");
+const caveSeedAl = require('../seed/ACS 2016.json');
 
 mongoose.connect(
     process.env.MONGODB_URI ||
@@ -55,3 +56,16 @@ db.Trip
     console.error(err);
     process.exit(1);
   });
+
+  db.CaveAl
+  .remove()
+  .then(() => 
+  db.CaveAl.collection.insertMany(caveSeedAl))
+    .then(data => {
+      console.log(data.length + " records inserted!");
+      process.exit(0);
+    })
+    .catch(err => {
+      console.error(err);
+      process.exit(1);
+    });

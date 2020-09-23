@@ -12,7 +12,7 @@ import ToggleButton from 'react-bootstrap/ToggleButton';
 
 function Map() {
     const [show, setShow] = useState(false);
-
+    const [cavesAl, setCavesAl] = useState(false);
     const handleClose = () => setShow(false);
     const handleShow = () => setShow(true);
     const [trips, setTrips] = useState([])
@@ -39,6 +39,14 @@ function Map() {
             .catch((err) => console.log(err));
     };
     
+    const getCavesAlabama = () => {
+        API.getCaveAls()
+            .then((results) => {
+                console.log("all trips from db:", results.data);
+                setCavesAl(results.data);
+            })
+            .catch((err) => console.log(err));
+    };
     
 
     const [radioValue, setRadioValue] = useState('1');
@@ -150,7 +158,7 @@ function Map() {
     }
 
     
-
+    useEffect(() => { getCavesAlabama(); }, []);
     useEffect(() => { getTrips(); }, []);
     return (
         <div id="mapid">

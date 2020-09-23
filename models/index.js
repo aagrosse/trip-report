@@ -1,3 +1,4 @@
 module.exports = {
-  Trip: require("./trip")
+  Trip: require("./trip"),
+  CaveAl: require("./caveal")
 };

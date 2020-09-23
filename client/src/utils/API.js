@@ -38,5 +38,23 @@ export default {
     return axios.delete("/api/trip/" + id);
   },
   
-  
+  //Caves Alabama
+  uploadCaveAl: function(data){
+    return axios.post("/api/caveal/", data)
+  },
+  getCaveAls: function() {
+    return axios.get("/api/caveal/");
+  },
+  getCaveAl: function(id) {
+    return axios.get("/api/caveal/" + id);
+  },
+  updateCaveAl: function( data) {
+    return axios.put("/api/caveal/",data);
+  },
+  getCaveAlByUserId: function(id){
+    return axios.get("/api/caveal/userId/" + id)
+  },
+  deleteCaveAl: function(id) {
+    return axios.delete("/api/caveal/" + id);
+  },
 };
